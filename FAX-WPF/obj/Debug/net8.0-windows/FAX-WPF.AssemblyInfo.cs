@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FAX-WPF")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ea6c81be5fd1ff631c8f458f6a9f1dfe0114100")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+decf4ae0c15c407cccc011e7d7bf8fa9e4df4327")]
 [assembly: System.Reflection.AssemblyProductAttribute("FAX-WPF")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FAX-WPF")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
