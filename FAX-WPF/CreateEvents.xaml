@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
 
             <Border Grid.ColumnSpan="2" Background="#336699" Padding="10">
                 <Grid>
@@ -48,4 +48,5 @@
             </StackPanel>
         </Grid>
     </Border>
+
 </Window>

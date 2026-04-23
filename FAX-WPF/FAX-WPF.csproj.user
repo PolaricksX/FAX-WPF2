@@ -10,12 +10,18 @@
     <Compile Update="CreateCategories.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="CreateEvents.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="EventsList.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="CreateCategories.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CreateEvents.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="EventsList.xaml">
