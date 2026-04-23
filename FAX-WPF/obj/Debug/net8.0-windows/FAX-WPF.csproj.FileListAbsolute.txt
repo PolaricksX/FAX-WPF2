@@ -1,7 +1,0 @@
-C:\Users\6229191\Source\Repos\FAX-WPF\FAX-WPF\FAX-WPF\obj\Debug\net8.0-windows\CreateCategories.g.cs
-C:\Users\6229191\Source\Repos\FAX-WPF\FAX-WPF\FAX-WPF\obj\Debug\net8.0-windows\Events.g.cs
-C:\Users\6229191\Source\Repos\FAX-WPF\FAX-WPF\FAX-WPF\obj\Debug\net8.0-windows\EventsList.g.cs
-C:\Users\6229191\Source\Repos\FAX-WPF\FAX-WPF\FAX-WPF\obj\Debug\net8.0-windows\MainWindow.g.cs
-C:\Users\6229191\Source\Repos\FAX-WPF\FAX-WPF\FAX-WPF\obj\Debug\net8.0-windows\App.g.cs
-C:\Users\6229191\Source\Repos\FAX-WPF\FAX-WPF\FAX-WPF\obj\Debug\net8.0-windows\FAX-WPF_MarkupCompile.cache
-C:\Users\6229191\Source\Repos\FAX-WPF\FAX-WPF\FAX-WPF\obj\Debug\net8.0-windows\FAX-WPF_MarkupCompile.lref
