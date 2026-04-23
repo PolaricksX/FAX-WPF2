@@ -416,3 +416,23 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+
+# Auto-generated assembly info
+**/AssemblyInfo.cs
+
+# Build output
+bin/
+obj/
+*.user
+.vs/
+
+# Auto-generated WPF/build files
+obj/
+bin/
+*.g.cs
+*.g.i.cs
+**/AssemblyInfo.cs
+.vs/
+*.user
+
