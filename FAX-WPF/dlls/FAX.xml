@@ -1,0 +1,1006 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FAX</name>
+    </assembly>
+    <members>
+        <member name="T:Calendar.CalendarFiles">
+             <summary>
+             CalendarFiles class is used to manage the file paths used used in the Calendar project
+             </summary>
+             <example>
+             <code>
+             <![CDATA[
+             CalenderFiles File = New CalenderFiles()
+             
+             String FilePath = ".\Users\TestUser\AppData\Local\Calendar"
+             String FileName = "calendar.db"
+            
+             File.VerifyReadFromFileName(FilePath,FileName)
+             File.VerifyWriteFromFileName(FilePath,FileName)
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.CalendarFiles.VerifyReadFromFileName(System.String,System.String)">
+            <summary>
+            Verfies if the path to the file exists
+            </summary>
+            <param name="FilePath">Relative Path to the file</param>
+            <param name="DefaultFileName">The Name of the file</param>
+            <returns>Returns FilePah if Valid.</returns>
+            <exception cref="T:System.IO.FileNotFoundException">Throws when the filepath does not exist.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            String nullPath = null
+            String fileName = "calendar.db"
+            
+            CalenderFiles File = New CalenderFiles()
+            
+            String returnPath = File.VerifyReadFromFileName(NullPath,FileName)
+            Console.WriteLine(ReturnPath) = "%USERPROFILE%\\AppData\\Local\\" "Calendar\\" "Calendar.txt"
+            
+            String fakePath =  ".\This\Drive\Does\Not\Exist"
+            returnPath = File.VerifyReadFromFileName(FakePath,fileName)
+            returnPath = FileNotFoundException "ReadFromFileException: FilePath (" + FakePath + ") Does not exist"
+            
+            string realPath = "".\Users\TestUser\AppData\Local\Calendar""
+            returnPath = File.VerifyReadFromFileName(realPath,fileName)
+            
+            Console.WriteLine(realPath) = "".\Users\TestUser\AppData\Local\Calendar""
+            
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.CalendarFiles.VerifyWriteToFileName(System.String,System.String)">
+            <summary>
+            Checks if the file is writable 
+            </summary>
+            <param name="FilePath">Relative Path to the file Allows Nulls</param>
+            <param name="DefaultFileName">Name of the file</param>
+            <returns>Returns the filepath</returns>
+            <exception cref="T:System.Exception">Throws when the specified directory isn't valid or The file isn't capable to be edited.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            string nullPath = null
+            string defaultFileName = calender.db
+            
+            
+            
+            CalenderFiles File = New CalenderFiles()
+            
+            Path = File.VeriyWriteToFileName(nullPath,defaultFileName)
+            Console.WriteLine(Path) = "%USERPROFILE%\\AppData\\Local\\"
+            
+            string fakePath = ".\This\Drive\Does\Not\Exist"
+            Path = File.VerifyWriteToFileName()
+            Path = Throw Exception ("SaveToFileException: FilePath("%USERPROFILE%\\AppData\\Local\\")
+            
+            
+            string realPath = "".\Users\TestUser\AppData\Local\Calendar""
+            returnPath = File.VerifyWriteFromFileName(realPath,fileName)
+            
+            Console.WriteLine(realPath) = "".\Users\TestUser\AppData\Local\Calendar""
+            
+            ]]>
+            </code>
+            </example>
+            <exception cref="T:System.Exception">Thrown when the directory does not exist or the file is read-only.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when the provided file path is null.</exception>
+            <exception cref="T:System.UnauthorizedAccessException">Thrown when the caller does not have the required permission. </exception>
+            <exception cref="T:System.IO.DirectoryNotFoundException">Thrown when the specified path is invalid. </exception>
+            <exception cref="T:System.IO.IOException">Thrown when an I/O error occurs. </exception>
+            <exception cref="T:System.ArgumentException">Thrown when one of the arguments provided to a method is not valid. </exception>
+            <exception cref="T:System.IO.PathTooLongException">Thrown when the specified path, file name, or both exceed the system-defined maximum length. </exception>
+            <exception cref="T:System.NotSupportedException">Thrown when the path is in an invalid format. </exception>
+            <exception cref="T:System.Security.SecurityException">Thrown when the caller does not have the required permission. </exception>"
+        </member>
+        <member name="T:Calendar.CalendarItem">
+             <summary>
+             Represents a single scheduled Calender entry in the Calender entry.
+             </summary>
+             <example>
+             <code>
+             <![CDATA[
+             CalendarItem = new CalendarItem(2,2, new DateTime(2026,1,26),"Fun","Went to the beach",73,73)
+             
+            
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="P:Calendar.CalendarItem.CategoryID">
+            <summary>
+            Gets or Sets the CategoryId Number of a calendar entry.
+            </summary>
+            <value> An integer value that is used to determined an already predefined category.</value>
+        </member>
+        <member name="P:Calendar.CalendarItem.EventID">
+            <summary>
+            Gets or Sets the EventId number of a calendar entry
+            </summary>
+            <value> An integer value that is used to an already determined an already predefined event. </value>
+        </member>
+        <member name="P:Calendar.CalendarItem.StartDateTime">
+            <summary>
+            Gets or Sets the Date of a calendar entry.
+            </summary>
+            <value> The date and time when the event started in DD/MM/YYYY</value>
+        </member>
+        <member name="P:Calendar.CalendarItem.Category">
+            <summary>
+            Gets or Sets the Category of a calendar entry.
+            </summary>
+            <value>A string of the chosen Category like Holiday,Work</value>
+        </member>
+        <member name="P:Calendar.CalendarItem.ShortDescription">
+            <summary>
+            Gets or sets a short description of a calendar entry.
+            </summary>
+            <value>a brief description of the event that occured.</value>
+        </member>
+        <member name="P:Calendar.CalendarItem.DurationInMinutes">
+            <summary>
+            Gets or Sets the Duration of the event in minutes of a calendar entry.
+            </summary>
+            <value> The lenght of how long the event lasted measured in minutes. </value>
+        </member>
+        <member name="P:Calendar.CalendarItem.BusyTime">
+            <summary>
+            The Duration of the event in minutes of a calendar entry.
+            </summary>
+            <value> The lenght of how long the event lasted measured in minutes.</value>
+        </member>
+        <member name="T:Calendar.CalendarItemsByMonth">
+            <summary>
+            Represents The total Events and busy time that took place in a month.
+            </summary>
+            <example>
+            <code>
+            <![CDATA[
+            CalendarItemsByMonth = new CalendarItemsByMonth
+            {
+                Month = January
+                Items = new List<CalendarItem>
+                {
+                    new CalendarItem
+                    {
+                        categoryId = 2,
+                        eventID = 2,
+                        StartDateTime = new DateTime(2026, 1, 26),
+                        category = "fun"
+                        shortDescription "Went to the beach",
+                        durationInMinutes = 73
+                        busyTime = 73
+                    }
+                }
+                TotalBusyTime = 73
+            }
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Calendar.CalendarItemsByMonth.Month">
+            <summary>
+            Get or sets The Month that the event took place in.
+            </summary>
+            <value> A month out of the twelve months in the year.</value>
+        </member>
+        <member name="P:Calendar.CalendarItemsByMonth.Items">
+            <summary>
+            Gets or Sets A list of Events that took place in the month
+            </summary>
+            <value>A List of Calendar Items </value>
+        </member>
+        <member name="P:Calendar.CalendarItemsByMonth.TotalBusyTime">
+            <summary>
+            The Accumulation of time that all of the events took
+            </summary>
+            <value> A double value that measures the total time all of the events took combined.</value>
+        </member>
+        <member name="T:Calendar.CalendarItemsByCategory">
+            <summary>
+            Groups the Calendar Items By Category.
+            </summary>
+            <example>
+            <code>
+            <![CDATA[
+                /// CalendarItemsByMonth = new CalendarItemsByMonth
+            {
+                Category = Fun
+                Items = new List<CalendarItem>
+                {
+                    new CalendarItem
+                    {
+                        categoryId = 2,
+                        eventID = 2,
+                        StartDateTime = new DateTime(2026, 1, 26),
+                        category = "fun"
+                        shortDescription "Went to the beach",
+                        durationInMinutes = 73
+                        busyTime = 73
+                    }
+                }
+                TotalBusyTime = 73
+            }
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Calendar.CalendarItemsByCategory.Category">
+            <summary>
+            Gets or Sets the Category to filter and group the events.
+            </summary>
+            <value> a string of the Type of event that took place</value>
+        </member>
+        <member name="P:Calendar.CalendarItemsByCategory.Items">
+            <summary>
+            Gets or Sets the Filtered Items by category.
+            </summary>
+            <value>A list of items grouped by category.</value>
+        </member>
+        <member name="P:Calendar.CalendarItemsByCategory.TotalBusyTime">
+            <summary>
+            Gets or Sets the total BusyTime that the group event accumulated.
+            </summary>
+            <value> A double value that measures the total time all of the events took combined </value>
+        </member>
+        <member name="T:Calendar.Categories">
+             <summary>
+             Manages the collection of Category objects stored in the SQLite database
+             Provides functionality to add, delete, update, and retrieve categories
+             </summary>
+             <remarks>
+             This class interacts directly with the SQLite database using the provided
+             database connection
+             </remarks>
+             <example>
+             <code>
+             <![CDATA[
+             SQLiteConnection connection = Database.dbConnection;
+            
+             Categories categories = new Categories(connection, true);
+            
+             categories.Add("Work", Category.CategoryType.Event);
+            
+             List<Category> list = categories.List();
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.Categories.#ctor(System.Data.SQLite.SQLiteConnection,System.Boolean)">
+             <summary>
+             Initializes a new instance of the Categories class.
+             </summary>
+             <param name="con">An open SQLite database connection.</param>
+             <param name="newDB">Indicates whether the database is newly created.</param>
+             <example>
+             <code>
+             <![CDATA[
+             SQLiteConnection connection = Database.dbConnection;
+            
+             Categories categories = new Categories(connection, true);
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.Categories.GetCategoryFromId(System.Int32)">
+             <summary>
+             Retrieves a category using its ID.
+             </summary>
+             <param name="i">The category ID.</param>
+             <returns>The matching Category.</returns>
+             <example>
+             <code>
+             <![CDATA[
+             Categories categories = new Categories(Database.dbConnection, false);
+            
+             Category category = categories.GetCategoryFromId(1);
+            
+             Console.WriteLine(category.Description);
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.Categories.SetCategoriesToDefaults">
+             <summary>
+             Clears existing category tables and inserts the default categories.
+             </summary>
+             <example>
+             <code>
+             <![CDATA[
+             Categories categories = new Categories(Database.dbConnection, false);
+            
+             categories.SetCategoriesToDefaults();
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.Categories.Add(System.String)">
+             <summary>
+             Adds a new category type
+             </summary>
+             <param name="desc">The description of the category type.</param>
+             <example>
+             <code>
+             <![CDATA[
+             Categories categories = new Categories(Database.dbConnection, false);
+            
+             categories.Add("Custom Type");
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.Categories.Add(System.String,Calendar.Category.CategoryType)">
+             <summary>
+             Adds a new category
+             </summary>
+             <param name="desc">The category description.</param>
+             <param name="type">The category type.</param>
+             <example>
+             <code>
+             <![CDATA[
+             Categories categories = new Categories(Database.dbConnection, false);
+            
+             categories.Add("Gym", Category.CategoryType.Event);
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.Categories.Delete(System.Int32)">
+             <summary>
+             Deletes a category and its related events.
+             </summary>
+             <param name="Id">The ID of the category to delete.</param>
+             <example>
+             <code>
+             <![CDATA[
+             Categories categories = new Categories(Database.dbConnection, false);
+            
+             categories.Delete(3);
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.Categories.List">
+             <summary>
+             Returns all categories in the database.
+             </summary>
+             <returns>A list of Category objects.</returns>
+             <example>
+             <code>
+             <![CDATA[
+             Categories categories = new Categories(Database.dbConnection, false);
+            
+             List<Category> categoriesList = categories.List();
+            
+             foreach (Category category in categoriesList)
+             {
+                 Console.WriteLine(category.Description);
+             }
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.Categories.UpdateProperties(System.Int32,System.String,Calendar.Category.CategoryType)">
+             <summary>
+             Updates the description and type of a category.
+             </summary>
+             <param name="id">The category ID.</param>
+             <param name="newDescr">The new description.</param>
+             <param name="type">The new category type.</param>
+             <example>
+             <code>
+             <![CDATA[
+             Categories categories = new Categories(Database.dbConnection, false);
+            
+             categories.UpdateProperties(2, "Updated Category", Category.CategoryType.Event);
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="T:Calendar.Category">
+            <summary>
+            Creates Categories for calendar Items   
+            </summary>
+            <example>
+            <code>
+            <![CDATA[
+            Category cat = new Category(12, "Non Standard", Category.CategoryType.Event);
+            
+            Console.Writeline(cat.ToString)
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Calendar.Category.Id">
+            <summary>
+            Gets or Sets the Id for a single category entry.
+            </summary>
+            <value>The integer value that the category holds</value>
+        </member>
+        <member name="P:Calendar.Category.Description">
+            <summary>
+            Gets or Sets the description for a single category entry
+            </summary>
+            <value>a string representation of the description for the category.</value>
+        </member>
+        <member name="P:Calendar.Category.Type">
+            <summary>
+            Represents the types of Category thats can exist  
+            </summary>
+        </member>
+        <member name="F:Calendar.Category.CategoryType.Event">
+            <summary>
+            Event represents just a normal event like going outside
+            </summary>
+        </member>
+        <member name="F:Calendar.Category.CategoryType.AllDayEvent">
+            <summary>
+            AllDayEvent represents an event that takes up the entire day
+            </summary>
+        </member>
+        <member name="F:Calendar.Category.CategoryType.Holiday">
+            <summary>
+            Holiday represents an event that is a holiday
+            </summary>
+        </member>
+        <member name="F:Calendar.Category.CategoryType.Availability">
+            <summary>
+            Availibility represents when the event is free time.
+            </summary>
+        </member>
+        <member name="M:Calendar.Category.#ctor(System.Int32,System.String,Calendar.Category.CategoryType)">
+            <summary>
+            Creates an instance of Category.
+            </summary>
+            <param name="id">The Id of the Category</param>
+            <param name="description"> A Short Description of the category</param>
+            <param name="type">The Type that the event associates with.</param>
+            <example>
+            <code>
+            <![CDATA[
+            Category = new Category(1,"work stuff",Event)
+            
+            Category.Id = 1
+            Category.Description = "Work stuff"
+            Category.Type = Event
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Category.#ctor(Calendar.Category)">
+            <summary>
+            Creates a Copy of the most recent Instance of a Category
+            </summary>
+            <param name="category">An old instance of Category.</param>
+            <example>
+            <code>
+            <![CDATA[
+            Category = new Category(1,"work stuff",Event)
+            
+            Category.Id = 1
+            Category.Description = "Work stuff"
+            Category.Type = Event
+            
+            Category = new Category2(Category)
+            
+            Category12.Id = 1
+            Category2.Description = "Work stuff"
+            Category2.Type = Event
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Category.ToString">
+            <summary>
+            Creates an Easy to read String for Reusabiltiy.
+            </summary>
+            <returns>Description: A Description of the Category</returns>
+            <example>
+            <code>
+            <![CDATA[
+            Category = new Category(1,"work stuff",Event)
+            
+            Console.WriteLine(Category.Tostring())
+            
+            Output "Work Stuff"
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="T:Calendar.Database">
+            <summary>
+            Provides methods for creating, opening, and managing the SQLite database used by the Calendar application
+            </summary>
+            <remarks>
+            This class handles database creation, table setup, connections, and closing of the database.
+            It makes sure all tables (events, categories, categoryTypes) are correctly set up and connected.
+            </remarks>
+            <example>
+            <code>
+            <![CDATA[
+            // Create a new database
+            Database.newDatabase("calendar.db");
+            
+            // Open an existing database
+            Database.existingDatabase("calendar.db");
+            
+            // Access the active database connection
+            SQLiteConnection conn = Database.dbConnection;
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="P:Calendar.Database.dbConnection">
+            <summary>
+            Gets the active SQLite database connection
+            </summary>
+            <value>The currently open SQLiteConnection object.</value>
+        </member>
+        <member name="M:Calendar.Database.newDatabase(System.String)">
+            <summary>
+            Creates a new SQLite database with the given filename, sets up the tables, and opens the connection.
+            </summary>
+            <param name="filename">The file path of the new SQLite database.</param>
+            <example>
+            <code>
+            <![CDATA[
+            Database.newDatabase("calendar.db");
+            SQLiteConnection conn = Database.dbConnection;
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Database.existingDatabase(System.String)">
+            <summary>
+            Opens an existing SQLite database file.
+            </summary>
+            <param name="filename">The file path of the existing SQLite database.</param>
+            <example>
+            <code>
+            <![CDATA[
+            Database.existingDatabase("calendar.db");
+            SQLiteConnection conn = Database.dbConnection;
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Database.CloseDatabaseAndReleaseFile">
+            <summary>
+            Safely closes the database connection and releases any resources.
+            </summary>
+            <example>
+            <code>
+            <![CDATA[
+            Database.CloseDatabaseAndReleaseFile();
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Database.connectDB(System.String)">
+            <summary>
+            Connects to a SQLite database file and opens the connection.
+            </summary>
+            <param name="filename">The file path of the SQLite database to connect to.</param>
+            <example>
+            <code>
+            <![CDATA[
+            Database.connectDB("calendar.db");
+            SQLiteConnection conn = Database.dbConnection;
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Database.CreateTable(System.String)">
+            <summary>
+            Creates the tables (events, categories, categoryTypes) in the SQLite database
+            it also drops existing tables if they exist.
+            </summary>
+            <param name="cs">The filename or connection string (currently not used because the connection uses static _connection).</param>
+            <example>
+            <code>
+            <![CDATA[
+            Database.CreateTable("calendar.db");
+            ]]>
+            </code>
+            </example>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Calendar.Event" -->
+        <member name="P:Calendar.Event.Id">
+            <summary>
+            Gets The Id Assigned to the event and returns it.
+            </summary>
+            <value>
+            Stores an Id which is an integer value.
+            </value>
+        </member>
+        <member name="P:Calendar.Event.StartDateTime">
+            <summary>
+            Gets The Start Date And Time When the event occured
+            </summary>
+            <value>
+            Stores The Date In YYYY/MM/DD Format
+            </value>
+        </member>
+        <member name="P:Calendar.Event.DurationInMinutes">
+            <summary>
+            Gets Or Sets the duration Of the Event measured in minutes.
+            </summary>
+            <value>
+            Stores the Duration of the event in minutes.
+            </value>
+        </member>
+        <member name="P:Calendar.Event.Details">
+            <summary>
+            Gets or Sets the Description/Details of the event
+            </summary>
+            <value>Stores the Description/Details of the event as a a string</value>
+        </member>
+        <member name="P:Calendar.Event.Category">
+            <summary>
+            Gets or Sets the Category as an integer number which associates to an already predefined category.
+            </summary>
+            <value>
+            Stores an integer value which represents a category.
+            </value>
+        </member>
+        <member name="M:Calendar.Event.#ctor(System.Int32,System.DateTime,System.Int32,System.Double,System.String)">
+            <summary>
+            Creates an Instance of Event
+            </summary>
+            <param name="id">The Id of the event</param>
+            <param name="date">The Date the event Occured in YYYY/MM/DD Format</param>
+            <param name="category">The Category the Event is classified as.</param>
+            <param name="duration">The Duration of the Event measured in minutes.</param>
+            <param name="details">The Details/Description of the event</param>
+            <example>
+            <code>
+            <![CDATA[
+            
+            Event Event = New Event(1,New DateTime(2026,2,27),90,"Went to the WaterPark",5)
+            
+            Event.Id = 1
+            Event.StartDateTime = "2026,2,27"
+            Event.DurationInMinutes = 90
+            Event.Details = "Went to the WaterPark
+            
+            
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Event.#ctor(Calendar.Event)">
+            <summary>
+            Creates An Copy of an instance depending on the passed in Object.
+            </summary>
+            <param name="obj">The object to Copy</param>
+            <example>
+            <code>
+            <![CDATA[
+            Event Event = New Event(1,New DateTime(2026,2,27),90,"Went to the WaterPark",5)
+            
+            Event CopyEvent(Event)
+            
+            CopyEvent.Id = 1
+            CopyEvent.StartDateTime = "2026,2,27"
+            CopyEvent.DurationInMinutes = 90
+            CopyEvent.Details = "Went to the WaterPark"
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="T:Calendar.Events">
+            <summary>
+            Manages the collection of Event objects, providing methods
+            to retrieve, add, delete, and update events from a database.
+            </summary>
+            <example>
+            <code>
+            <![CDATA[
+            
+            Events events = new Events(connection, true);
+            
+            events.Add(1, 90, "2026-03-25", "basketball session")
+            
+            List<Event> allEvents = events.List();
+            
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="F:Calendar.Events._connection">
+            <summary>
+            The SQLite database connection used to do all operations.
+            </summary>
+        </member>
+        <member name="M:Calendar.Events.#ctor(System.Data.SQLite.SQLiteConnection,System.Boolean)">
+            <summary>
+            Creates an instance of Events connected to the database.
+            </summary>
+            <param name="con">The connection to the database.</param>
+            <param name="newDB">If true, a new database is initiliazed. Else, the existing one is used.</param>
+            <example>
+            <code>
+            <![CDATA[
+            
+            Events events = new Events(connection, false);
+            
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Events.List">
+            <summary>
+            Retrieves all events in the database as a list of Event objects.
+            </summary>
+            <returns>List of Event objects in the database.</returns>
+            <example>
+            <code>
+            <![CDATA[
+            
+            Events events = new Events(connection, false);
+            
+            List<Event> allEvents = events.List();
+            
+            // allEvents[0].Id = 1
+            // allEvents[0].Details = "basketball session"
+            
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Events.Add(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Adds a new Event object to the database.
+            </summary>
+            <param name="category">The int ID of the category of the event.</param>
+            <param name="duration">The duration of the event in minutes.</param>
+            <param name="date">The start date and time of the event.</param>
+            <param name="details">The description/details of the event.</param>
+            <example>
+            <code>
+            <![CDATA[
+            
+            Events events = new Events(connection, false);
+            
+            events.Add(1, 90, "2026-03-25", "basketball session")
+            
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Events.Delete(System.Int32)">
+            <summary>
+            Deletes an event with the specified ID from the database.
+            </summary>
+            <param name="Id">The int ID of the event to delete.</param>
+            <example>
+            <code>
+            <![CDATA[
+            
+            Events events = new Events(connection, false);
+            
+            events.Delete(1);
+            
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Events.UpdateEvent(System.Int32,System.Int32,System.Double,System.DateTime,System.String)">
+            <summary>
+            Updates an existing event with new values.
+            </summary>
+            <param name="eventId">The ID of the event to delete.</param>
+            <param name="categoryId">The new category ID for the event.</param>
+            <param name="duration">The new duration of the event.</param>
+            <param name="date">The new start date time of the event.</param>
+            <param name="details">The new description/details of the event.</param>
+            <example>
+            <code>
+            <![CDATA[
+            
+            Events events = new Events(connection, false);
+            
+            events.UpdateEvent(1, 2, 360, new DateTime(2026, 3, 27), "basketball tournament");
+            
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Calendar.Events.GetEventFromId(System.Int32)">
+            <summary>
+            Retrieves an event from its ID.
+            </summary>
+            <param name="id">The ID of the event to retrieve.</param>
+            <returns>The Event object matching the ID.</returns>
+            <exception cref="T:System.Exception">Thrown when no event with the ID exists in the database.</exception>
+            <example>
+            <code>
+            <![CDATA[
+            
+            Events events = new Events(connection, false);
+            
+            Event event = events.GetEventFromId(1);
+            
+            // event.Id = 1
+            // event.Details = "basketball session"
+            
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="T:Calendar.HomeCalendar">
+             <summary>
+             Creates a calendar (dictionary) of events grouped by categories.
+             Categories and events are now loaded directly from the database.
+             </summary>
+             <example>
+             <code>
+             <![CDATA[
+             string dbFile = "calendar.db";
+             HomeCalendar homeCalendar = new HomeCalendar(dbFile);
+            
+             string fileName = homeCalendar.FileName;
+             string dirName = homeCalendar.DirName;
+             string pathName = homeCalendar.PathName;
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="P:Calendar.HomeCalendar.categories">
+            <summary>
+            Gets the list of categories
+            </summary>
+            <value>
+            stores a list of category object
+            </value>
+        </member>
+        <member name="P:Calendar.HomeCalendar.events">
+            <summary>
+            Gets a list of events
+            </summary>
+            <value>
+            stores a list of event objects
+            </value>
+        </member>
+        <member name="M:Calendar.HomeCalendar.GetCalendarItems(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean,System.Int32)">
+             <summary>
+             Retrieves all calendar items directly from the database, filters by date range and optionally by category
+             </summary>
+             <param name="Start">The start date. Defaults to 1/1/1900 if null.</param>
+             <param name="End">The end date. Defaults to 1/1/2500 if null.</param>
+             <param name="FilterFlag">If true, filters by the specified CategoryID.</param>
+             <param name="CategoryID">The CategoryID to filter by if FilterFlag is true.</param>
+             <returns>Returns a list of CalendarItem objects with calculated BusyTime</returns>
+             <example>
+             <code>
+             <![CDATA[
+             HomeCalendar homeCalendar = new HomeCalendar("calendar.db");
+            
+             // Get all events in 2020
+             List<CalendarItem> items = homeCalendar.GetCalendarItems(new DateTime(2020, 1, 1), new DateTime(2020, 12, 31), false, 0);
+            
+             // Get events only in Category 3
+             List<CalendarItem> filteredItems = homeCalendar.GetCalendarItems(null, null, true, 3);
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.HomeCalendar.GetCalendarItemsByMonth(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean,System.Int32)">
+             <summary>
+             Retrieves calendar items grouped by month using database queries.  The distinct months are first queried from the database, then items for each month
+             are retrieved by calling GetCalendarItems() with the appropriate month range.
+             </summary>
+             <param name="Start">The start date. Defaults to 1/1/1900 if null.</param>
+             <param name="End">The end date. Defaults to 1/1/2500 if null.</param>
+             <param name="FilterFlag">If true, filters by the specified CategoryID.</param>
+             <param name="CategoryID">The CategoryID to filter by if FilterFlag is true.</param>
+             <returns>Returns a list of CalendarItemsByMonth, each containing a month string, items list, and total busy time.</returns>
+             <example>
+             <code>
+             <![CDATA[
+             HomeCalendar homeCalendar = new HomeCalendar("calendar.db");
+            
+             // Get all calendar items grouped by month
+             List<CalendarItemsByMonth> itemsByMonth = homeCalendar.GetCalendarItemsByMonth(null, null, false, 0);
+            
+             // Get items for Category 3 only
+             List<CalendarItemsByMonth> filteredByMonth = homeCalendar.GetCalendarItemsByMonth(null, null, true, 3);
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.HomeCalendar.GetCalendarItemsByCategory(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean,System.Int32)">
+             <summary>
+             Retrieves calendar items grouped by category using database queries. Distinct categories in the date range are first queried from the database,
+             then GetCalendarItems() is called for each category to get the detailed items.
+             </summary>
+             <param name="Start">The start date. Defaults to 1/1/1900 if null.</param>
+             <param name="End">The end date. Defaults to 1/1/2500 if null.</param>
+             <param name="FilterFlag">If true, filters by the specified CategoryID.</param>
+             <param name="CategoryID">The CategoryID to filter by if FilterFlag is true.</param>
+             <returns>Returns a list of CalendarItemsByCategory, each containing a category name, items list, and total busy time.</returns>
+             <example>
+             <code>
+             <![CDATA[
+             HomeCalendar homeCalendar = new HomeCalendar("calendar.db");
+            
+             // Get all categories with events
+             List<CalendarItemsByCategory> itemsByCategory = homeCalendar.GetCalendarItemsByCategory(null, null, false, 0);
+            
+             // Get only Category 3
+             List<CalendarItemsByCategory> filteredByCategory = homeCalendar.GetCalendarItemsByCategory(null, null, true, 3);
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Calendar.HomeCalendar.GetCalendarDictionaryByCategoryAndMonth(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.Boolean,System.Int32)">
+            <summary>
+             Gets a list of dictionary by Grouping all events by Category and Month one per month and one per category and returns a summary
+            </summary>
+            <example>
+            <code>
+            <![CDATA[
+             
+            Events = homeCalendar.GetCalendarDictionaryByCategoryAndMonth(null, null, false, 9);
+            
+            /// Month: 2018/01
+              TotalBusyTime: 115 mins
+              Fun: 40 mins
+              Work: 75 mins
+            Month: 2019/01
+              TotalBusyTime: 60 mins
+              Work: 60 mins
+            Month: 2020/01
+              TotalBusyTime: 5940 mins
+              Birthdays: 1440 mins
+              Canadian Holidays: 1440 mins
+              On call: 180 mins
+              Vacation: 2880 mins
+            Month: TOTALS
+              Work: 135 mins
+              Fun: 40 mins
+              On call: 180 mins
+              Canadian Holidays: 1440 mins
+              Vacation: 2880 mins
+              Birthdays: 1440 mins
+            
+            Events = homeCalendar.GetCalendarDictionaryByCategoryAndMonth(null, null, true, 9);
+            
+            /// === Calendar Items by Category and Month ===
+            Month: 2020/01
+            TotalBusyTime: 2880 mins
+            Vacation: 2880 mins
+            Month: TOTALS
+            Vacation: 2880 mins
+            
+            Events = homeCalendar.GetCalendarDictionaryByCategoryAndMonth(new DateTime(2025,1,1), new DateTime(2025,12,31), false, 5)
+            
+            === Calendar Items by Category and Month ===
+            Month: 2020/01
+              TotalBusyTime: 5940 mins
+              Birthdays: 1440 mins
+              Canadian Holidays: 1440 mins
+              On call: 180 mins
+              Vacation: 2880 mins
+            Month: TOTALS
+              On call: 180 mins
+              Canadian Holidays: 1440 mins
+              Vacation: 2880 mins
+              Birthdays: 1440 mins
+            
+            ]]>
+            </code>
+            </example>
+            <param name="Start">The Start Date by YYYY/MM/DD.</param>
+            <param name="End">The End Date by YYYY/MM/DD</param>
+            <param name="FilterFlag">if true filter the Calendar items by category.</param>
+            <param name="CategoryID">The Category to be filter by</param>
+            <returns>Summary</returns>
+        </member>
+    </members>
+</doc>

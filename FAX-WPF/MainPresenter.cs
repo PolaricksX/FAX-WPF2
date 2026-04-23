@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CalendarMVP
+namespace FAX_WPF
 {
-    internal class View
+    internal class MainPresenterWindow
     {
     }
 }

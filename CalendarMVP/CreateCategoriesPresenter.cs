@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CalendarMVP
 {
-    internal class View
+    internal class CreateCategoriesPresenter
     {
     }
 }
