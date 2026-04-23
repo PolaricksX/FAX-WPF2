@@ -1,0 +1,19 @@
+﻿<Application x:Class="FAX_WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FAX_WPF"
+             StartupUri="MainWindow.xaml">
+    
+    <Application.Resources>
+        |
+        <Style x:Key="GlobalRedButton" TargetType="Button">
+            <Setter Property="Background" Value="Red"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="DarkRed"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+
+    </Application.Resources>
+</Application>
