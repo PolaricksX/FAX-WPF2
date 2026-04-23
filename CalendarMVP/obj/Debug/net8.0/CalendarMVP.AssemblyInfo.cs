@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CalendarMVP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c35ff4c9ff29ec1f8bc564c338467d68a3f43c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ea6c81be5fd1ff631c8f458f6a9f1dfe0114100")]
 [assembly: System.Reflection.AssemblyProductAttribute("CalendarMVP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CalendarMVP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
