@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FAX_WPF
 {
-    internal class EventsPresenterWindow
+    internal class EventsPresenter
     {
+        
     }
 }

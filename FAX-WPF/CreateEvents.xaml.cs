@@ -23,5 +23,10 @@ namespace FAX_WPF
         {
             InitializeComponent();
         }
+
+        private void btnClose(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Border Background="{DynamicResource SurfaceBrush}" CornerRadius="10" Margin="20" Padding="20" MaxWidth="320" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock Text="FAX Calendar" FontSize="24" FontWeight="Bold" Margin="0,0,0,12" HorizontalAlignment="Center" />
+                <ComboBox x:Name="cmbTheme" Width="220" SelectedIndex="0" SelectionChanged="cmbTheme_SelectionChanged">
+                    <ComboBoxItem Content="Soft Blue" />
+                    <ComboBoxItem Content="High Contrast" />
+                </ComboBox>
+                <Button Content="Exit App" Width="220" Click="ExitApp_Click" />
+            </StackPanel>
+        </Border>
 
     </Grid>
 </Window>

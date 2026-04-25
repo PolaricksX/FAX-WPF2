@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:FAX_WPF"
         mc:Ignorable="d"
         Title="CreateEvents" Height="450" Width="800">
-    <Border Background="#336699" BorderThickness="2" Margin="20" CornerRadius="5">
-        <Grid Background="White">
+    <Border Background="{DynamicResource PrimaryBrush}" BorderThickness="2" Margin="20" CornerRadius="5">
+        <Grid Background="{DynamicResource SurfaceBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -22,7 +22,7 @@
             </Grid.ColumnDefinitions>
 
 
-            <Border Grid.ColumnSpan="2" Background="#336699" Padding="10">
+            <Border Grid.ColumnSpan="2" Background="{DynamicResource PrimaryBrush}" Padding="10">
                 <Grid>
                     <TextBlock Text="Create Event" Foreground="White" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
                     <Button Content="X" Style="{StaticResource GlobalRedButton}" 
@@ -42,9 +42,9 @@
             <TextBox Name="txtDetails" Grid.Row="4" Grid.Column="1" Margin="5"/>
 
             <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Background="DarkGreen" Content="Save" Width="80" Height="30" Margin="5"/>
-                <Button Background="DarkRed" Content="Cancel" Width="80" Height="30" Margin="5"/>
-                <Button Background="Aqua" Content="Create Category" Height="30" Margin="5"/>
+                <Button Background="{DynamicResource AccentBrush}" Content="Save" Width="80" Height="30" Margin="5"/>
+                <Button Background="{DynamicResource DangerBrush}" Content="Cancel" Width="80" Height="30" Margin="5"/>
+                <Button Background="{DynamicResource PrimaryBrush}" Content="Create Category" Height="30" Margin="5"/>
             </StackPanel>
         </Grid>
     </Border>
