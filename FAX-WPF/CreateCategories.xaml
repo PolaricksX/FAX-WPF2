@@ -22,6 +22,7 @@
             </StackPanel>
         </GroupBox>
 
+        <!-- source: https://www.c-sharpcorner.com/UploadFile/mahesh/wpf-combobox/ -->
         <GroupBox Header="Category Type">
             <ComboBox x:Name="cmbCategoryType" Margin="5">
                 <ComboBoxItem Content="Event"/>
