@@ -24,7 +24,7 @@ namespace FAX_WPF
         public CreateEvents(MainPresenter p)
         {
             InitializeComponent();
-            _eventpresenter = p.createEventsPresenter(this);
+            _eventpresenter = p.GetEventsPresenter(this);
 
         }
 

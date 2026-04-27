@@ -8,21 +8,23 @@ using System.Windows.Media.Media3D;
 
 namespace FAX_WPF
 {
-    internal class MainPresenter
+    public class MainPresenter
     {
-        private IMainView _mainPresenter;
+        public IMainView _mainPresenter;
         private HomeCalendar _model;
 
-        public MainPresenter(IMainView mainView)
+        public MainPresenter(IMainView mainView, string filename, bool db)
         {
             _mainPresenter = mainView;
             _model = new HomeCalendar("Default", true);
         }
 
-        public EventsPresenter GetEventsPresenter(IEventView ev)
+        internal EventsPresenter GetEventsPresenter(IEventView ev)
         {
             return new EventsPresenter(ev, _model);
         }
+        
+        
 
         
        

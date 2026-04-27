@@ -16,7 +16,7 @@ namespace FAX_WPF
     /// </summary>
     public partial class MainWindow : Window, IMainView
     {
-        private MainPresenterWindow _mainpresenter;
+        private MainPresenter _mainpresenter;
         public MainWindow(string filename, bool newDB)
         {
             InitializeComponent();
@@ -27,8 +27,12 @@ namespace FAX_WPF
         
 
         private void cmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cmbTheme.SelectedItem is not ComboBoxItem selectedItem)
+        {   if (sender is not ComboBox cmb)
+            {
+                return;
+            }
+
+            if (cmb.SelectedItem is not ComboBoxItem selectedItem)
             {
                 return;
             }
