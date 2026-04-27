@@ -23,12 +23,12 @@
         </GroupBox>
 
         <GroupBox Header="Category Type">
-            <StackPanel x:Name="stkpCategoryType" Margin="5">
-                <CheckBox Content="Event" IsChecked="True"/>
-                <CheckBox Content="All-Day Event"/>
-                <CheckBox Content="Holiday"/>
-                <CheckBox Content="Availability"/>
-            </StackPanel>
+            <ComboBox x:Name="cmbCategoryType" Margin="5">
+                <ComboBoxItem Content="Event"/>
+                <ComboBoxItem Content="All-Day Event"/>
+                <ComboBoxItem Content="Holiday"/>
+                <ComboBoxItem Content="Availability"/>
+            </ComboBox>
         </GroupBox>
 
         <Button Content="Create Category" Margin="10" Click="btnCreateCategory_Clicked"/>
