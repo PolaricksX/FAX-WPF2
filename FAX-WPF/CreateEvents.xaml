@@ -32,14 +32,16 @@
                 </Grid>
             </Border>
 
-            <Label Content="Category ID:" Grid.Row="1" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtCategoryID" Grid.Row="1" Grid.Column="1" Margin="5"/>
-            <Label Content="Duration in Minutes:" Grid.Row="2" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtDuration" Grid.Row="2" Grid.Column="1" Margin="5"/>
-            <Label Content="Start DateTime:" Grid.Row="3" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtDateTime" Grid.Row="3" Grid.Column="1" Margin="5"/>
-            <Label Content="Details:" Grid.Row="4" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtDetails" Grid.Row="4" Grid.Column="1" Margin="5"/>
+            <Label Content="Category:" Grid.Row="1" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
+            <ComboBox Name="cmbCategoryName" Grid.Row="1" Grid.Column="1" Margin="5" SelectionChanged="cmbCategoryName_SelectionChanged"/>
+            <Label Content="Category ID:" Grid.Row="2" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
+            <TextBox Name="txtCategoryID" Grid.Row="2" Grid.Column="1" Margin="5"/>
+            <Label Content="Duration in Minutes:" Grid.Row="3" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
+            <TextBox Name="txtDuration" Grid.Row="3" Grid.Column="1" Margin="5"/>
+            <Label Content="Start DateTime:" Grid.Row="4" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
+            <TextBox Name="txtDateTime" Grid.Row="4" Grid.Column="1" Margin="5"/>
+            <Label Content="Details:" Grid.Row="5" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
+            <TextBox Name="txtDetails" Grid.Row="5" Grid.Column="1" Margin="5"/>
 
             <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <Button Background="DarkGreen" Content="Save" Width="80" Height="30" Margin="5"/>
