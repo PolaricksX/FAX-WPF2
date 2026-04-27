@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace FAX_WPF
 {
-    internal interface IEventView
+    public interface IEventView
     {
+
     }
 }

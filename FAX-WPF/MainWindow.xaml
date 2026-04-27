@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button Content="Create Event" Width="160" Height="40" Click="CreateEvent_Click"/>
+            <Button Content="Create Category" Width="160" Height="40" Click="CreateCategory_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

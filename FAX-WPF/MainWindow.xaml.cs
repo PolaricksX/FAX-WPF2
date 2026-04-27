@@ -14,11 +14,23 @@ namespace FAX_WPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IMainView
     {
+        private MainPresenter _presenter;
         public MainWindow()
         {
             InitializeComponent();
+            _presenter = new MainPresenter(this);
+        }
+
+        private void CreateEvent_Click(object sender, RoutedEventArgs e)
+        {
+            CreateEvents createEvent = new CreateEvents(_presenter);
+        }
+
+        private void CreateCategory_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

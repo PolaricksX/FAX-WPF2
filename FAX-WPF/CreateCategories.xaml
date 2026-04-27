@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FAX_WPF"
         mc:Ignorable="d"
-        Title="CreateCategories" Height="450" Width="800">
+        Title="CreateCategories"  Width="350"
+        SizeToContent="Height"
+        WindowStartupLocation="CenterScreen">
     <StackPanel Margin="10">
 
         <TextBlock Text="Calendar App" FontSize="22"
