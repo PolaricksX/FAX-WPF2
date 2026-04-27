@@ -27,5 +27,10 @@ namespace FAX_WPF
             _eventpresenter = p.createEventsPresenter(this);
 
         }
+
+        private void btnClose(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

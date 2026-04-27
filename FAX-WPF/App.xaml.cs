@@ -9,6 +9,7 @@ namespace FAX_WPF
     /// </summary>
     public partial class App : Application
     {
+        
     }
 
 }
