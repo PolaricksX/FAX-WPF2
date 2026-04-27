@@ -5,15 +5,64 @@
              StartupUri="MainWindow.xaml">
     
     <Application.Resources>
-        |
-        <Style x:Key="GlobalRedButton" TargetType="Button">
-            <Setter Property="Background" Value="Red"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="DarkRed"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
+            <SolidColorBrush x:Key="AppBackgroundBrush" Color="#F7FAFC" />
+            <SolidColorBrush x:Key="SurfaceBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="PrimaryBrush" Color="#2F6F8F" />
+            <SolidColorBrush x:Key="AccentBrush" Color="#4F7C6A" />
+            <SolidColorBrush x:Key="TextBrush" Color="#1F2933" />
+            <SolidColorBrush x:Key="DangerBrush" Color="#C0392B" />
+            <SolidColorBrush x:Key="ControlBorderBrush" Color="#AAB6C3" />
+            <SolidColorBrush x:Key="InputBackgroundBrush" Color="#FFFFFF" />
 
+            <Style TargetType="Window">
+                <Setter Property="Background" Value="{DynamicResource AppBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="Background" Value="{DynamicResource PrimaryBrush}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="Padding" Value="8,5" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
+            <Style TargetType="Label">
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style TargetType="ComboBox">
+                <Setter Property="Background" Value="{DynamicResource InputBackgroundBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style TargetType="GroupBox">
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <Style TargetType="ListBox">
+                <Setter Property="Background" Value="{DynamicResource SurfaceBrush}" />
+                <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}" />
+            </Style>
+
+            <Style x:Key="GlobalRedButton" TargetType="Button">
+                <Setter Property="Background" Value="{DynamicResource DangerBrush}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="BorderBrush" Value="DarkRed" />
+                <Setter Property="Padding" Value="5" />
+            </Style>
     </Application.Resources>
 </Application>

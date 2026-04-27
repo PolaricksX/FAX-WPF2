@@ -23,5 +23,10 @@ namespace FAX_WPF
         {
             InitializeComponent();
         }
+
+        private void btnCreateCategory_Clicked(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }

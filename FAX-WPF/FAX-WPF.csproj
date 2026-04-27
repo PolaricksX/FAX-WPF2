@@ -9,4 +9,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="FAX">
+      <HintPath>dlls\HomeCalendar Api\FAX.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

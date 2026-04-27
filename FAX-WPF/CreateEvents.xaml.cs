@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calendar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +18,19 @@ namespace FAX_WPF
     /// <summary>
     /// Interaction logic for CreateEvents.xaml
     /// </summary>
-    public partial class CreateEvents : Window
+    public partial class CreateEvents : Window, IEventView
     {
-        public CreateEvents()
+        private EventsPresenter _eventpresenter;
+        public CreateEvents(MainPresenter p)
         {
             InitializeComponent();
+            _eventpresenter = p.GetEventsPresenter(this);
+
+        }
+
+        private void btnClose(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
