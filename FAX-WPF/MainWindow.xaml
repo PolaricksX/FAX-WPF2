@@ -15,6 +15,10 @@
                     <ComboBoxItem Content="High Contrast" />
                 </ComboBox>
                 <Button Content="Exit App" Width="220" Click="ExitApp_Click" />
+                <Button Content="Select Calendar" Click="SelectCalendar_Click"/>
+                <Button Content="Save Calendar" Click="SaveCalendar_Click"/>
+
+                <TextBlock x:Name="tbInfo"/>
             </StackPanel>
         </Border>
 
