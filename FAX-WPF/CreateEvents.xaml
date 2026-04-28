@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FAX_WPF"
         mc:Ignorable="d"
-        Title="CreateEvents" Height="450" Width="800">
+        Title="CreateEvents" Width="350"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="Height">
     <Border Background="#336699" BorderThickness="2" Margin="20" CornerRadius="5">
         <Grid Background="White">
             <Grid.RowDefinitions>
