@@ -17,7 +17,7 @@ namespace FAX_WPF
     /// <summary>
     /// Interaction logic for CreateCategories.xaml
     /// </summary>
-    public partial class CreateCategories : Window
+    public partial class CreateCategories : Window, ICategoryView
     {
         public CreateCategories()
         {

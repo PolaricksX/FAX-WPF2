@@ -8,6 +8,16 @@ namespace FAX_WPF
 {
     public interface ICategoryView
     {
+        string Description { get; set; }
+        CategoryType SelectedCategoryType { get; set; }
+        void ShowMessage(string message);
+    }
 
+    public enum CategoryType
+    {
+        Event,
+        AllDayEvent,
+        Holiday,
+        Availability
     }
 }

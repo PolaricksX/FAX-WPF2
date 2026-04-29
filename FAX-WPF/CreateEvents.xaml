@@ -42,8 +42,8 @@
             <TextBox Name="txtDetails" Grid.Row="4" Grid.Column="1" Margin="5"/>
 
             <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Background="{DynamicResource AccentBrush}" Content="Save" Width="80" Height="30" Margin="5"/>
-                <Button Background="{DynamicResource DangerBrush}" Content="Cancel" Width="80" Height="30" Margin="5"/>
+                <Button Background="{DynamicResource AccentBrush}" Content="Save" Width="80" Height="30" Margin="5" Click="btnSave_Click"/>
+                <Button Background="{DynamicResource DangerBrush}" Content="Cancel" Width="80" Height="30" Margin="5" Click="btnCancel_Click"/>
                 <Button Background="{DynamicResource PrimaryBrush}" Content="Create Category" Height="30" Margin="5"/>
             </StackPanel>
         </Grid>

@@ -24,10 +24,15 @@ namespace FAX_WPF
             return new EventsPresenter(ev, _model);
         }
         
-        
 
-        
-       
+        internal CategoryPresenter GetCategoryPresenter(ICategoryView ev)
+        {
+            return new CategoryPresenter(ev, _model);
+        }
+
+
+
+
     }
 
 }
