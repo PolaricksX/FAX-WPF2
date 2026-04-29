@@ -47,5 +47,6 @@
         </GroupBox>
         <Button Content="Save Event" Margin="10" Click="btnSave_Clicked"/>
         <Button Content="Cancel Event" Margin="10" Click="btnCancel_Clicked"/>
+        <Button Content="Create Category" Margin="10" Click="btnCreateCategory_Clicked"/>
     </StackPanel>
 </Window>
