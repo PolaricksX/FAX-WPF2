@@ -129,6 +129,8 @@ namespace FAX_WPF
                 Properties.Settings.Default.Save();
 
                 tbInfo.Text = $"Opened: {System.IO.Path.GetFileName(selectedPath)}";
+
+                SaveLastUsedFile(selectedPath);
             }
         }
 
@@ -162,10 +164,33 @@ namespace FAX_WPF
 
                 tbInfo.Text = $"Created: {System.IO.Path.GetFullPath(finalPath)}";
 
+                SaveLastUsedFile(finalPath);
             }
+        }
+
+        private static void SaveLastUsedFile(string filePath)
+        {
+            // https://learn.microsoft.com/en-us/dotnet/api/microsoft.win32.registry?view=net-10.0
+            using RegistryKey key = Registry.CurrentUser.CreateSubKey(@"SOFTWARE\FAX_WPF");
+            key.SetValue("LastUsedFile", filePath);
+        }
+
+        private void PreviousFile_Click(object sender, RoutedEventArgs e)
+        {
+            // https://learn.microsoft.com/en-us/dotnet/api/microsoft.win32.registry.currentuser?view=net-10.0#microsoft-win32-registry-currentuser
+            using RegistryKey? key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\FAX_WPF");
+
+            string lastusedFile = key?.GetValue("LastUsedFile") as string;
+
+            if (string.IsNullOrEmpty(lastusedFile) || !File.Exists(lastusedFile))
+            {
+                MessageBox.Show("No previous file found or the file does not exist");
+                return;
+            }
+
+            tbInfo.Text = $"Opened: {System.IO.Path.GetFileName(lastusedFile)}";
         }
     }
 }
 
-}
 
