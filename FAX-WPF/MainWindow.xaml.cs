@@ -82,6 +82,17 @@ namespace FAX_WPF
 
         private void ExitApp_Click(object sender, RoutedEventArgs e)
         {
+            var result = MessageBox.Show(
+                "Are you sure you want to close the application?",
+                "Confirm Exit",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
             Application.Current.Shutdown();
         }
 
@@ -164,8 +175,11 @@ namespace FAX_WPF
 
             }
         }
-    }
-}
 
+        private void PreviousFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }
 

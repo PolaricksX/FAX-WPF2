@@ -10,12 +10,12 @@ namespace FAX_WPF
 {
     public class MainPresenter
     {
-        public IMainView _mainPresenter;
-        private HomeCalendar _model;
+        public IMainView MainView { get; }
+        private readonly HomeCalendar _model;
 
         public MainPresenter(IMainView mainView, string filename, bool db)
         {
-            _mainPresenter = mainView;
+            MainView = mainView;
             _model = new HomeCalendar("Default", true);
         }
 
