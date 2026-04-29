@@ -33,17 +33,17 @@
             </Border>
 
             <Label Content="Category ID:" Grid.Row="1" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtCategoryID" Grid.Row="1" Grid.Column="1" Margin="5"/>
+            <TextBox Name="txtCategoryID" Grid.Row="1" Grid.Column="1" Margin="5" TextChanged="txtCategoryID_TextChanged"/>
             <Label Content="Duration in Minutes:" Grid.Row="2" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtDuration" Grid.Row="2" Grid.Column="1" Margin="5"/>
+            <TextBox Name="txtDuration" Grid.Row="2" Grid.Column="1" Margin="5" TextChanged="txtDuration_TextChanged"/>
             <Label Content="Start DateTime:" Grid.Row="3" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtDateTime" Grid.Row="3" Grid.Column="1" Margin="5"/>
+            <TextBox Name="txtDateTime" Grid.Row="3" Grid.Column="1" Margin="5" TextChanged="txtDateTime_TextChanged"/>
             <Label Content="Details:" Grid.Row="4" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtDetails" Grid.Row="4" Grid.Column="1" Margin="5"/>
+            <TextBox Name="txtDetails" Grid.Row="4" Grid.Column="1" Margin="5" TextChanged="txtDetails_TextChanged"/>
 
             <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Background="{DynamicResource AccentBrush}" Content="Save" Width="80" Height="30" Margin="5" Click="btnSave_Click"/>
-                <Button Background="{DynamicResource DangerBrush}" Content="Cancel" Width="80" Height="30" Margin="5" Click="btnCancel_Click"/>
+                <Button Background="{DynamicResource AccentBrush}" Content="Save" Width="80" Height="30" Margin="5"/>
+                <Button Background="{DynamicResource DangerBrush}" Content="Cancel" Width="80" Height="30" Margin="5"/>
                 <Button Background="{DynamicResource PrimaryBrush}" Content="Create Category" Height="30" Margin="5"/>
             </StackPanel>
         </Grid>

@@ -8,7 +8,6 @@ namespace FAX_WPF
 {
     public interface IEventView
     {
-        int CategoryId { get; set; }
         int DurationMinutes { get; set; }
         DateTime StartDateTime { get; set; }
         string Details { get; set; }

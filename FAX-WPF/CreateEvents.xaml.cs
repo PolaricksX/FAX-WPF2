@@ -12,7 +12,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using System.Globalization;
 
 namespace FAX_WPF
 {
@@ -22,47 +21,6 @@ namespace FAX_WPF
     public partial class CreateEvents : Window, IEventView
     {
         private EventsPresenter _eventpresenter;
-
-        public int CategoryId
-        {
-            get => int.TryParse(txtCategoryID.Text, out int value) ? value : 0;
-            set => txtCategoryID.Text = value.ToString();
-        }
-
-        public int DurationMinutes
-        {
-            get => int.TryParse(txtDuration.Text, out int value) ? value : 0;
-            set => txtDuration.Text = value.ToString();
-        }
-
-        public DateTime StartDateTime
-        {
-            get
-            {
-                const string format = "yyyy-MM-dd HH:mm";
-                if (DateTime.TryParseExact(txtDateTime.Text, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsed))
-                {
-                    return parsed;
-                }
-
-                return DateTime.TryParse(txtDateTime.Text, CultureInfo.CurrentCulture, DateTimeStyles.None, out parsed)
-                    ? parsed
-                    : DateTime.MinValue;
-            }
-            set => txtDateTime.Text = value.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
-        }
-
-        public string Details
-        {
-            get => txtDetails.Text;
-            set => txtDetails.Text = value ?? string.Empty;
-        }
-
-        public void ShowMessage(string message)
-        {
-            MessageBox.Show(message);
-        }
-
         public CreateEvents(MainPresenter p)
         {
             InitializeComponent();
@@ -70,19 +28,71 @@ namespace FAX_WPF
 
         }
 
-        private void btnSave_Click(object sender, RoutedEventArgs e)
-        {
-            _eventpresenter.CreateEvent();
-        }
-
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         private void btnClose(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+
+        public int DurationMinutes
+        {
+            get
+            {
+                if (int.TryParse(txtDuration.Text, out int duration))
+                {
+                    return duration;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            set
+            {
+                txtDuration.Text = value.ToString();
+            }
+        }
+
+        public DateTime StartDateTime
+        {
+            get
+            {
+                if (DateTime.TryParse(txtDateTime.Text, out DateTime dt))
+                {
+                    return dt;
+                }
+                else
+                {
+                    return DateTime.Now;
+                }
+            }
+            set
+            {
+                txtDateTime.Text = value.ToString();
+            }
+        }
+        public string Details
+        {
+            get
+            {
+                if (txtDetails.Text != null)
+                {
+                    return txtDetails.Text;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            set
+            {
+                txtDetails.Text = value;
+            }
+        }
+
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
         }
     }
 }
