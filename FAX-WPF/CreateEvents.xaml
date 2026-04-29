@@ -39,6 +39,11 @@
                 <TextBox x:Name="txtDateTime" Width="200"/>
             </StackPanel>
         </GroupBox>
-        
+        <GroupBox Header="Details">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Details" Margin="0,0,20,0"/>
+                <TextBox x:Name="txtDetails" Width="200"/>
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </Window>
