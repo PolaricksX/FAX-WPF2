@@ -9,6 +9,9 @@
         WindowStartupLocation="CenterScreen"
         SizeToContent="Height">
     <StackPanel Margin="10">
-        
+        <TextBlock Text="Calendar App" FontSize="22"
+                   HorizontalAlignment="Center"/>
+        <TextBlock Text="Create Event" FontSize="15"
+                   HorizontalAlignment="Center"/>
     </StackPanel>
 </Window>
