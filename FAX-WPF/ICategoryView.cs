@@ -8,6 +8,7 @@ namespace FAX_WPF
 {
     public interface ICategoryView
     {
+        int Id { get; set; }
         string Description { get; set; }
         CategoryType SelectedCategoryType { get; set; }
         void ShowMessage(string message);
