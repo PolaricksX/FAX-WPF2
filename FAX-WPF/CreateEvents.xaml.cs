@@ -32,5 +32,87 @@ namespace FAX_WPF
         {
             Close();
         }
+
+
+        public int DurationMinutes
+        {
+            get
+            {
+                if (int.TryParse(txtDuration.Text, out int duration))
+                {
+                    return duration;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            set
+            {
+                txtDuration.Text = value.ToString();
+            }
+        }
+
+        public DateTime StartDateTime
+        {
+            get
+            {
+                if (DateTime.TryParse(txtDateTime.Text, out DateTime dt))
+                {
+                    return dt;
+                }
+                else
+                {
+                    return DateTime.Now;
+                }
+            }
+            set
+            {
+                txtDateTime.Text = value.ToString();
+            }
+        }
+        public string Details
+        {
+            get
+            {
+                if (txtDetails.Text != null)
+                {
+                    return txtDetails.Text;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            set
+            {
+                txtDetails.Text = value;
+            }
+        }
+
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        private void txtCategoryID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtDuration_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtDateTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtDetails_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
