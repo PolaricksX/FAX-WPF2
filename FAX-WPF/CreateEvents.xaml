@@ -27,5 +27,12 @@
                 <TextBox x:Name="txtCategoryID" Width="200"/>
             </StackPanel>
         </GroupBox>
+        <GroupBox Header="Duration">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Duration" Margin="0,0,20,0"/>
+                <TextBox x:Name="txtDuration" Width="200"/>
+            </StackPanel>
+        </GroupBox>
+        
     </StackPanel>
 </Window>
