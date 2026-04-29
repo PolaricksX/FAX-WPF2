@@ -19,15 +19,21 @@ namespace FAX_WPF
     /// </summary>
     public partial class CreateCategories : Window, ICategoryView
     {
-        private CategoryType _selectedCategoryType;
-        public CreateCategories()
+        private Calendar.Category.CategoryType _selectedCategoryType;
+        private CategoryPresenter _catPresenter;
+
+        public CreateCategories(MainPresenter p)
         {
             InitializeComponent();
+            _catPresenter = p.GetCategoryPresenter(this);
         }
 
         private void btnCreateCategory_Clicked(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (_catPresenter.SaveCategory())
+            {
+                Close();
+            }
         }
 
         public string Description
@@ -49,7 +55,7 @@ namespace FAX_WPF
             }
         }
 
-        public CategoryType SelectedCategoryType
+        public Calendar.Category.CategoryType SelectedCategoryType
         {
            get
             {
@@ -61,16 +67,16 @@ namespace FAX_WPF
 
                 switch (value)
                 {
-                    case CategoryType.Event:
+                    case Calendar.Category.CategoryType.Event:
                         cbEvent.IsChecked = true;
                         break;
-                    case CategoryType.AllDayEvent:
+                    case Calendar.Category.CategoryType.AllDayEvent:
                         cbAllDayEvent.IsChecked = true; 
                         break;
-                    case CategoryType.Holiday:
+                    case Calendar.Category.CategoryType.Holiday:
                         cbHoliday.IsChecked = true;
                         break;
-                    case CategoryType.Availability:
+                    case Calendar.Category.CategoryType.Availability:
                         cbAvailability.IsChecked = true;
                         break;
                 }
@@ -87,16 +93,16 @@ namespace FAX_WPF
             switch (cb.Name)
             {
                 case "cbEvent":
-                    SelectedCategoryType = CategoryType.Event;
+                    SelectedCategoryType = Calendar.Category.CategoryType.Event;
                     break;
                 case "cbAllDayEvent":
-                    SelectedCategoryType = CategoryType.AllDayEvent;
+                    SelectedCategoryType = Calendar.Category.CategoryType.AllDayEvent;
                     break;
                 case "cbHoliday":
-                    SelectedCategoryType = CategoryType.Holiday;
+                    SelectedCategoryType = Calendar.Category.CategoryType.Holiday;
                     break;
                 case "cbAvailability":
-                    SelectedCategoryType = CategoryType.Availability;
+                    SelectedCategoryType = Calendar.Category.CategoryType.Availability;
                     break;
                 default:
                     break;

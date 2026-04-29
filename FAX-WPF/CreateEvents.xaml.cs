@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace FAX_WPF
 {
@@ -26,11 +27,52 @@ namespace FAX_WPF
             InitializeComponent();
             _eventpresenter = p.GetEventsPresenter(this);
 
+            cmbCategoryName.DisplayMemberPath = nameof(Category.Description);
+
+            var categories = _eventpresenter.GetCategories();
+            foreach (var category in categories)
+            {
+                cmbCategoryName.Items.Add(category);
+            }
+        }
+
+        private void cmbCategoryName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbCategoryName.SelectedItem is Category category)
+            {
+                txtCategoryID.Text = category.Id.ToString();
+            }
         }
 
         private void btnClose(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        public int CategoryId
+        {
+            get
+            {
+                if (cmbCategoryName.SelectedItem is Category category)
+                {
+                    return category.Id;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            set
+            {
+                foreach (var item in cmbCategoryName.Items)
+                {
+                    if (item is Category category && category.Id == value)
+                    {
+                        cmbCategoryName.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
         }
 
 
@@ -57,7 +99,7 @@ namespace FAX_WPF
         {
             get
             {
-                if (DateTime.TryParse(txtDateTime.Text, out DateTime dt))
+                if (DateTime.TryParse(txtDateTime.Text, CultureInfo.CurrentCulture, System.Globalization.DateTimeStyles.None, out DateTime dt))
                 {
                     return dt;
                 }
@@ -95,24 +137,18 @@ namespace FAX_WPF
             MessageBox.Show(message);
         }
 
-        private void txtCategoryID_TextChanged(object sender, TextChangedEventArgs e)
+        private void btnSave_Clicked(object sender, RoutedEventArgs e)
         {
-
+            if (!_eventpresenter.SaveEvent())
+            {
+                return;
+            }
+            Close();
         }
 
-        private void txtDuration_TextChanged(object sender, TextChangedEventArgs e)
+        private void btnCancel_Clicked(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void txtDateTime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void txtDetails_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            Close();
         }
     }
 }
