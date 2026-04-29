@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Microsoft.Win32;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace FAX_WPF
 {
@@ -29,10 +31,11 @@ namespace FAX_WPF
             ApplyTheme("Soft Blue");
         }
 
-        
+
 
         private void cmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {   if (sender is not ComboBox cmb)
+        {
+            if (sender is not ComboBox cmb)
             {
                 return;
             }
@@ -91,4 +94,4 @@ namespace FAX_WPF
             MessageBox.Show(message);
         }   
     }
-}
+
