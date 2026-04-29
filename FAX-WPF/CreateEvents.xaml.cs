@@ -74,6 +74,7 @@ namespace FAX_WPF
             CreateCategories createCategories = new CreateCategories();
             createCategories.Show();
             this.Close();
+        }
         public int CategoryId
         {
             get
@@ -160,20 +161,6 @@ namespace FAX_WPF
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
-        }
-
-        private void btnSave_Clicked(object sender, RoutedEventArgs e)
-        {
-            if (!_eventpresenter.SaveEvent())
-            {
-                return;
-            }
-            Close();
-        }
-
-        private void btnCancel_Clicked(object sender, RoutedEventArgs e)
-        {
-            Close();
         }
     }
 }
