@@ -17,6 +17,11 @@ namespace FAX_WPF
     public partial class MainWindow : Window, IMainView
     {
         private MainPresenter _mainpresenter;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+        }
         public MainWindow(string filename, bool newDB)
         {
             InitializeComponent();

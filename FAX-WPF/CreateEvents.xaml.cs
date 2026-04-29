@@ -94,5 +94,25 @@ namespace FAX_WPF
         {
             MessageBox.Show(message);
         }
+
+        private void txtCategoryID_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtDuration_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtDateTime_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void txtDetails_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

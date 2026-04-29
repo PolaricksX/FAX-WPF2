@@ -23,7 +23,7 @@ namespace FAX_WPF
             {
                 _model.categories.Add(
                     _view.Description,
-                    _view.SelectedCategoryType.ToString());
+                    (Calendar.Category.CategoryType)_view.SelectedCategoryType);
 
                 _view.ShowMessage("Category saved successfully!");
             }
