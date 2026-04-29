@@ -13,5 +13,13 @@
                    HorizontalAlignment="Center"/>
         <TextBlock Text="Create Event" FontSize="15"
                    HorizontalAlignment="Center"/>
+        <GroupBox Header="Category">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Category" Margin="0, 0, 20, 0"/>
+                <ComboBox x:Name="cmbCategoryName" 
+                          Width="200" 
+                          SelectionChanged="cmbCategoryName_SelectionChanged"/>
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </Window>
