@@ -21,5 +21,11 @@
                           SelectionChanged="cmbCategoryName_SelectionChanged"/>
             </StackPanel>
         </GroupBox>
+        <GroupBox Header="Category ID">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Category ID" Margin="0,0,20,0"/>
+                <TextBox x:Name="txtCategoryID" Width="200"/>
+            </StackPanel>
+        </GroupBox>
     </StackPanel>
 </Window>
