@@ -9,32 +9,37 @@ namespace FAX_WPF
 {
     internal class EventsPresenter
     {
-        private IEventView _view;
-        private HomeCalendar _model;    
+        private readonly IEventView _view;
+        private readonly HomeCalendar _model;    
         public EventsPresenter(IEventView v, HomeCalendar m)
         {
            _view = v;
             _model = m;
         }
 
-        public void SaveEvent()
+        public bool SaveEvent()
         {
-            int tempid = 1;
             try
             {
                 _model.events.Add(
-                    tempid,
+                    _view.CategoryId,
                     _view.DurationMinutes,
-                    _view.StartDateTime.ToString("yyyy - MM - dd HH: mm:ss"),
+                    _view.StartDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
                     _view.Details);
 
                 _view.ShowMessage("Event saved successfully!");
+                return true;
             }
             catch(Exception ex)
             {
                 _view.ShowMessage($"Error saving event: {ex.Message}");
+                return false;
             }
 
+        }
+        public  List<Category> GetCategories()
+        {
+            return _model.categories.List();
         }
 
         

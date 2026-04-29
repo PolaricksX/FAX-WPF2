@@ -18,20 +18,16 @@ namespace FAX_WPF
     /// </summary>
     public partial class MainWindow : Window, IMainView
     {
-        private MainPresenter _mainpresenter;
-
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-        public MainWindow(string filename, bool newDB)
-        {
-            InitializeComponent();
-            _mainpresenter = new(this, filename, newDB);
-            ApplyTheme("Soft Blue");
-        }
-
-
+            public MainWindow()
+            {
+                InitializeComponent();
+            }
+            public MainWindow(string filename, bool newDB)
+            {
+                InitializeComponent();
+                _ = new MainPresenter(this, filename, newDB);
+                ApplyTheme("Soft Blue");
+            }
 
         private void cmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -92,6 +88,22 @@ namespace FAX_WPF
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
-        }   
+        }
+
+        private void SelectCalendar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveCalendar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PreviousFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
+}
 
