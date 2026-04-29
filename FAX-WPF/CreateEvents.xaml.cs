@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace FAX_WPF
 {
@@ -26,6 +27,21 @@ namespace FAX_WPF
             InitializeComponent();
             _eventpresenter = p.GetEventsPresenter(this);
 
+            cmbCategoryName.DisplayMemberPath = nameof(Category.Description);
+
+            var categories = _eventpresenter.GetCategories();
+            foreach (var category in categories)
+            {
+                cmbCategoryName.Items.Add(category);
+            }
+        }
+
+        private void cmbCategoryName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbCategoryName.SelectedItem is Category category)
+            {
+                txtCategoryID.Text = category.Id.ToString();
+            }
         }
 
         private void btnClose(object sender, RoutedEventArgs e)
@@ -58,6 +74,106 @@ namespace FAX_WPF
             CreateCategories createCategories = new CreateCategories();
             createCategories.Show();
             this.Close();
+        public int CategoryId
+        {
+            get
+            {
+                if (cmbCategoryName.SelectedItem is Category category)
+                {
+                    return category.Id;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            set
+            {
+                foreach (var item in cmbCategoryName.Items)
+                {
+                    if (item is Category category && category.Id == value)
+                    {
+                        cmbCategoryName.SelectedItem = item;
+                        break;
+                    }
+                }
+            }
+        }
+
+
+        public int DurationMinutes
+        {
+            get
+            {
+                if (int.TryParse(txtDuration.Text, out int duration))
+                {
+                    return duration;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            set
+            {
+                txtDuration.Text = value.ToString();
+            }
+        }
+
+        public DateTime StartDateTime
+        {
+            get
+            {
+                if (DateTime.TryParse(txtDateTime.Text, CultureInfo.CurrentCulture, System.Globalization.DateTimeStyles.None, out DateTime dt))
+                {
+                    return dt;
+                }
+                else
+                {
+                    return DateTime.Now;
+                }
+            }
+            set
+            {
+                txtDateTime.Text = value.ToString();
+            }
+        }
+        public string Details
+        {
+            get
+            {
+                if (txtDetails.Text != null)
+                {
+                    return txtDetails.Text;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            set
+            {
+                txtDetails.Text = value;
+            }
+        }
+
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
+
+        private void btnSave_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (!_eventpresenter.SaveEvent())
+            {
+                return;
+            }
+            Close();
+        }
+
+        private void btnCancel_Clicked(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

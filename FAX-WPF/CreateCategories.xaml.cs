@@ -17,16 +17,101 @@ namespace FAX_WPF
     /// <summary>
     /// Interaction logic for CreateCategories.xaml
     /// </summary>
-    public partial class CreateCategories : Window
+    public partial class CreateCategories : Window, ICategoryView
     {
-        public CreateCategories()
+        private Calendar.Category.CategoryType _selectedCategoryType;
+        private CategoryPresenter _catPresenter;
+
+        public CreateCategories(MainPresenter p)
         {
             InitializeComponent();
+            _catPresenter = p.GetCategoryPresenter(this);
         }
 
         private void btnCreateCategory_Clicked(object sender, RoutedEventArgs e)
         {
-            Close();
+            if (_catPresenter.SaveCategory())
+            {
+                Close();
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                if (!(string.IsNullOrEmpty(txtDescription.Text)))
+                {
+                    return txtDescription.Text;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            set
+            {
+                txtDescription.Text = value;
+            }
+        }
+
+        public Calendar.Category.CategoryType SelectedCategoryType
+        {
+           get
+            {
+              return _selectedCategoryType;
+            }
+            set
+            {
+                _selectedCategoryType = value;
+
+                switch (value)
+                {
+                    case Calendar.Category.CategoryType.Event:
+                        cbEvent.IsChecked = true;
+                        break;
+                    case Calendar.Category.CategoryType.AllDayEvent:
+                        cbAllDayEvent.IsChecked = true; 
+                        break;
+                    case Calendar.Category.CategoryType.Holiday:
+                        cbHoliday.IsChecked = true;
+                        break;
+                    case Calendar.Category.CategoryType.Availability:
+                        cbAvailability.IsChecked = true;
+                        break;
+                }
+            }
+        }
+
+        private void CategoryCheckBox_Changed(object sender, RoutedEventArgs e)
+        {
+            if (sender is not CheckBox cb)
+            {
+                return;
+            }
+
+            switch (cb.Name)
+            {
+                case "cbEvent":
+                    SelectedCategoryType = Calendar.Category.CategoryType.Event;
+                    break;
+                case "cbAllDayEvent":
+                    SelectedCategoryType = Calendar.Category.CategoryType.AllDayEvent;
+                    break;
+                case "cbHoliday":
+                    SelectedCategoryType = Calendar.Category.CategoryType.Holiday;
+                    break;
+                case "cbAvailability":
+                    SelectedCategoryType = Calendar.Category.CategoryType.Availability;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
         }
     }
 }

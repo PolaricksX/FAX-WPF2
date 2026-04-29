@@ -18,23 +18,20 @@ namespace FAX_WPF
     /// </summary>
     public partial class MainWindow : Window, IMainView
     {
-        private MainPresenter _mainpresenter;
-
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
-        public MainWindow(string filename, bool newDB)
-        {
-            InitializeComponent();
-            _mainpresenter = new(this, filename, newDB);
-            ApplyTheme("Soft Blue");
-        }
-
-        
+            public MainWindow()
+            {
+                InitializeComponent();
+            }
+            public MainWindow(string filename, bool newDB)
+            {
+                InitializeComponent();
+                _ = new MainPresenter(this, filename, newDB);
+                ApplyTheme("Soft Blue");
+            }
 
         private void cmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {   if (sender is not ComboBox cmb)
+        {
+            if (sender is not ComboBox cmb)
             {
                 return;
             }
@@ -88,6 +85,11 @@ namespace FAX_WPF
             Application.Current.Shutdown();
         }
 
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }
+
         // https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.openfiledialog?view=windowsdesktop-10.0
         private void SelectCalendar_Click(object sender, RoutedEventArgs e)
         {
@@ -95,17 +97,17 @@ namespace FAX_WPF
             string defaultFolder = System.IO.Path.Combine(docPath, "Calendars");
 
             // use last directory if it exists, otherwise use default
-            // https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/how-to-create-a-new-setting-at-design-time
+            // https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/how-to-create-a-new-settingat-design-time
             string initialDirectory = Properties.Settings.Default.LastUsedDirectory;
             if (string.IsNullOrEmpty(initialDirectory) || !Directory.Exists(initialDirectory))
             {
                 initialDirectory = defaultFolder;
+
                 if (!Directory.Exists(initialDirectory))
                 {
                     Directory.CreateDirectory(initialDirectory);
                 }
             }
-
 
             OpenFileDialog openFileDialog = new OpenFileDialog()
             {
@@ -122,29 +124,25 @@ namespace FAX_WPF
                 // take that selectedPath and give it to the presenter??
 
                 // save the directory for next time
-                // https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/how-to-write-user-settings-at-run-time-with-csharp
+                // https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/how-to-write-usersettings-at-run-time-with-csharp
                 Properties.Settings.Default.LastUsedDirectory = System.IO.Path.GetDirectoryName(selectedPath);
                 Properties.Settings.Default.Save();
 
                 tbInfo.Text = $"Opened: {System.IO.Path.GetFileName(selectedPath)}";
             }
         }
-        
 
         private void SaveCalendar_Click(object sender, RoutedEventArgs e)
         {
             string docPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-
             string defaultFolder = System.IO.Path.Combine(docPath, "Calendars");
-
 
             // making sure the subfolder actually exists
             if (!System.IO.Directory.Exists(defaultFolder))
             {
                 System.IO.Directory.CreateDirectory(defaultFolder);
             }
-
 
             SaveFileDialog saveFileDialog = new SaveFileDialog()
             {
@@ -154,7 +152,6 @@ namespace FAX_WPF
                 FileName = "MyCalendar"
             };
 
-
             if (saveFileDialog.ShowDialog() == true)
             {
                 // this is the full path the user chose (e.g., .../Documents/Calendars/Work.db)
@@ -163,13 +160,12 @@ namespace FAX_WPF
                 //https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-10.0 creating file
                 File.Create(finalPath).Close();
 
-
                 tbInfo.Text = $"Created: {System.IO.Path.GetFullPath(finalPath)}";
 
-
-                //HomeCalendar.SaveToFile(finalPath);
             }
         }
     }
-    
 }
+
+}
+

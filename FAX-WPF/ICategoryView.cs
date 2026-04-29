@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Calendar;
 
 namespace FAX_WPF
 {
     public interface ICategoryView
     {
-
+        string Description { get; set; }
+        Calendar.Category.CategoryType SelectedCategoryType { get; set; }
+        void ShowMessage(string message);
     }
 }
