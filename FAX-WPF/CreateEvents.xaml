@@ -5,47 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FAX_WPF"
         mc:Ignorable="d"
-        Title="CreateEvents" Height="450" Width="800">
-    <Border Background="{DynamicResource PrimaryBrush}" BorderThickness="2" Margin="20" CornerRadius="5">
-        <Grid Background="{DynamicResource SurfaceBrush}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-
-            <Border Grid.ColumnSpan="2" Background="{DynamicResource PrimaryBrush}" Padding="10">
-                <Grid>
-                    <TextBlock Text="Create Event" Foreground="White" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold"/>
-                    <Button Content="X" Style="{StaticResource GlobalRedButton}" 
-                     Click="btnClose" 
-                     HorizontalAlignment="Right"
-                     Width="25" Height="25"/>
-                </Grid>
-            </Border>
-
-            <Label Content="Category ID:" Grid.Row="1" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtCategoryID" Grid.Row="1" Grid.Column="1" Margin="5"/>
-            <Label Content="Duration in Minutes:" Grid.Row="2" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtDuration" Grid.Row="2" Grid.Column="1" Margin="5"/>
-            <Label Content="Start DateTime:" Grid.Row="3" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtDateTime" Grid.Row="3" Grid.Column="1" Margin="5"/>
-            <Label Content="Details:" Grid.Row="4" VerticalAlignment="Center" Margin="10" FontWeight="SemiBold"/>
-            <TextBox Name="txtDetails" Grid.Row="4" Grid.Column="1" Margin="5"/>
-
-            <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal"  HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Background="{DynamicResource AccentBrush}" Content="Save" Width="80" Height="30" Margin="5"/>
-                <Button Background="{DynamicResource DangerBrush}" Content="Cancel" Width="80" Height="30" Margin="5"/>
-                <Button Background="{DynamicResource PrimaryBrush}" Content="Create Category" Height="30" Margin="5"/>
+        Title="CreateEvents" Width="350"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="Height">
+    <StackPanel Margin="10">
+        <TextBlock Text="Calendar App" FontSize="22"
+                   HorizontalAlignment="Center"/>
+        <TextBlock Text="Create Event" FontSize="15"
+                   HorizontalAlignment="Center"/>
+        <GroupBox Header="Category">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Category" Margin="0, 0, 20, 0"/>
+                <ComboBox x:Name="cmbCategoryName" 
+                          Width="200" 
+                          SelectionChanged="cmbCategoryName_SelectionChanged"/>
             </StackPanel>
-        </Grid>
-    </Border>
+        </GroupBox>
+        <GroupBox Header="Category ID">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Category ID" Margin="0,0,20,0"/>
+                <TextBox x:Name="txtCategoryID" Width="200"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Duration">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Duration" Margin="0,0,20,0"/>
+                <TextBox x:Name="txtDuration" Width="200"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Date and Time">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Date and Time" Margin="0,0,20,0"/>
+                <TextBox x:Name="txtDateTime" Width="200"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Details">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Details" Margin="0,0,20,0"/>
+                <TextBox x:Name="txtDetails" Width="200"/>
+            </StackPanel>
+        </GroupBox>
+        <Button Content="Save Event" Margin="10" Click="btnSave_Clicked"/>
+        <Button Content="Cancel Event" Margin="10" Click="btnCancel_Clicked"/>
+    </StackPanel>
 </Window>
