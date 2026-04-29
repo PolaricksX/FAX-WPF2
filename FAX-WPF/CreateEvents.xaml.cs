@@ -22,6 +22,8 @@ namespace FAX_WPF
     public partial class CreateEvents : Window, IEventView
     {
         private EventsPresenter _eventpresenter;
+        private MainPresenter _mainPresenter;
+
         public CreateEvents(MainPresenter p)
         {
             InitializeComponent();
@@ -71,7 +73,7 @@ namespace FAX_WPF
 
         private void btnCreateCategory_Clicked(object sender, RoutedEventArgs e)
         {
-            CreateCategories createCategories = new CreateCategories();
+            CreateCategories createCategories = new CreateCategories(_mainPresenter);
             createCategories.Show();
             this.Close();
         }

@@ -21,6 +21,7 @@ namespace FAX_WPF
     {
         private Calendar.Category.CategoryType _selectedCategoryType;
         private CategoryPresenter _catPresenter;
+        private MainPresenter _mainPresenter;
 
         public CreateCategories(MainPresenter p)
         {
