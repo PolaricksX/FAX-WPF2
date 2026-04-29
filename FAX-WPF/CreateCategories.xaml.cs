@@ -28,5 +28,24 @@ namespace FAX_WPF
         {
             Close();
         }
+
+        public string Description
+        {
+            get
+            {
+                if (!(string.IsNullOrEmpty(txtDescription.Text)))
+                {
+                    return txtDescription.Text;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            set
+            {
+                txtDescription.Text = value;
+            }
+        }
     }
 }
