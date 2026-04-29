@@ -22,12 +22,12 @@
             </StackPanel>
         </GroupBox>
 
-        <GroupBox Header="Category Type">
+        <GroupBox x:Name="cmbBox" Header="Category Type">
             <StackPanel x:Name="stkpCategoryType" Margin="5">
-                <CheckBox Content="Event" IsChecked="True"/>
-                <CheckBox Content="All-Day Event"/>
-                <CheckBox Content="Holiday"/>
-                <CheckBox Content="Availability"/>
+                <CheckBox x:Name="cbEvent" Content="Event" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed"/>
+                <CheckBox x:Name="cbAllDayEvent" Content="All-Day Event" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed"/>
+                <CheckBox x:Name="cbHoliday" Content="Holiday" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed"/>
+                <CheckBox x:Name="cbAvailability" Content="Availability" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed"/>
             </StackPanel>
         </GroupBox>
 
