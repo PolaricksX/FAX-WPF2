@@ -49,6 +49,31 @@ namespace FAX_WPF
             Close();
         }
 
+        private void btnSave_Clicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnCancel_Clicked(object sender, RoutedEventArgs e)
+        {
+            // source: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxbuttons?view=windowsdesktop-10.0
+
+            const string message = "Are you sure you would like to cancel?";
+            const string caption = "Closing Window";
+
+            var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                this.Close();
+            }
+        }
+
+        private void btnCreateCategory_Clicked(object sender, RoutedEventArgs e)
+        {
+            CreateCategories createCategories = new CreateCategories();
+            createCategories.Show();
+            this.Close();
         public int CategoryId
         {
             get
