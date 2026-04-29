@@ -9,7 +9,6 @@ namespace FAX_WPF
 {
     public interface IMainView
     {
-        string StatusMessage { get; set; }
         void ShowMessage(string message);
     }
 }

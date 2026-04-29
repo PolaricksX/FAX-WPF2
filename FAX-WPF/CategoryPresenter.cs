@@ -17,5 +17,22 @@ namespace FAX_WPF
             _model = m;
         }
 
+        public void SaveCategory()
+        {
+            try
+            {
+                _model.categories.Add(
+                    _view.Description,
+                    _view.SelectedCategoryType.ToString());
+
+                _view.ShowMessage("Category saved successfully!");
+            }
+            catch (Exception ex)
+            {
+                _view.ShowMessage($"Error saving category: {ex.Message}");
+            }
+
+        }
+
     }
 }

@@ -80,5 +80,10 @@ namespace FAX_WPF
         {
             Application.Current.Shutdown();
         }
+
+        public void ShowMessage(string message)
+        {
+            MessageBox.Show(message);
+        }   
     }
 }
