@@ -1,6 +1,8 @@
 ﻿using Calendar;
+using FAX;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,29 +11,45 @@ namespace FAX_WPF
 {
     internal class CategoryPresenter
     {
-        private ICategoryView _view;
-        private HomeCalendar _model;
+        private readonly ICategoryView _view;
+        private readonly HomeCalendar _model;
         public CategoryPresenter(ICategoryView v, HomeCalendar m)
         {
             _view = v;
             _model = m;
         }
 
-        public void SaveCategory()
+        public bool SaveCategory()
         {
             try
             {
                 _model.categories.Add(
                     _view.Description,
-                    (Calendar.Category.CategoryType)_view.SelectedCategoryType);
+                    _view.SelectedCategoryType);
 
                 _view.ShowMessage("Category saved successfully!");
+                return true;
             }
-            catch (Exception ex)
+            catch (System.Data.SQLite.SQLiteException ex)
             {
-                _view.ShowMessage($"Error saving category: {ex.Message}");
+                _view.ShowMessage($"Database error: {ex.Message}");
+                return false;
             }
-
+            catch (InvalidOperationException ex)
+            {
+                _view.ShowMessage($"Save failed: {ex.Message}");
+                return false;
+            }
+            catch (ArgumentException ex)
+            {
+                _view.ShowMessage(ex.Message);
+                return false;
+            }
+            catch (Exception)
+            {
+                _view.ShowMessage("An unexpected error occurred while saving the category.");
+                return false;
+            }
         }
 
     }

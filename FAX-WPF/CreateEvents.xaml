@@ -9,10 +9,14 @@
         WindowStartupLocation="CenterScreen"
         SizeToContent="Height">
     <StackPanel Margin="10">
+        
+        <!-- Header for Window -->
         <TextBlock Text="Calendar App" FontSize="22"
                    HorizontalAlignment="Center"/>
         <TextBlock Text="Create Event" FontSize="15"
                    HorizontalAlignment="Center"/>
+        
+        <!-- Category: category for the event -->
         <GroupBox Header="Category">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Category" Margin="0, 0, 20, 0"/>
@@ -21,31 +25,46 @@
                           SelectionChanged="cmbCategoryName_SelectionChanged"/>
             </StackPanel>
         </GroupBox>
+        
+        <!-- Category ID: ID of the event -->
         <GroupBox Header="Category ID">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Category ID" Margin="0,0,20,0"/>
                 <TextBox x:Name="txtCategoryID" Width="200"/>
             </StackPanel>
         </GroupBox>
+        
+        <!-- Duration: duration of the event in minutes -->
         <GroupBox Header="Duration">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Duration" Margin="0,0,20,0"/>
                 <TextBox x:Name="txtDuration" Width="200"/>
             </StackPanel>
         </GroupBox>
+        
+        <!-- Date and Time: time and date of the event -->
         <GroupBox Header="Date and Time">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Date and Time" Margin="0,0,20,0"/>
                 <TextBox x:Name="txtDateTime" Width="200"/>
             </StackPanel>
         </GroupBox>
+        
+        <!-- Details: extra info of the event -->
         <GroupBox Header="Details">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Details" Margin="0,0,20,0"/>
                 <TextBox x:Name="txtDetails" Width="200"/>
             </StackPanel>
         </GroupBox>
+        
+        <!-- Save Event: button to save newly created event -->
         <Button Content="Save Event" Margin="10" Click="btnSave_Clicked"/>
+        
+        <!-- Cancel Event: button to cancel creation of new event -->
         <Button Content="Cancel Event" Margin="10" Click="btnCancel_Clicked"/>
+        
+        <!-- Create Category: button to go category creation window -->
+        <Button Content="Create Category" Margin="10" Click="btnCreateCategory_Clicked"/>
     </StackPanel>
 </Window>

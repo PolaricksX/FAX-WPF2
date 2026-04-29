@@ -249,158 +249,57 @@
             <value> A double value that measures the total time all of the events took combined </value>
         </member>
         <member name="T:Calendar.Categories">
-             <summary>
-             Manages the collection of Category objects stored in the SQLite database
-             Provides functionality to add, delete, update, and retrieve categories
-             </summary>
-             <remarks>
-             This class interacts directly with the SQLite database using the provided
-             database connection
-             </remarks>
-             <example>
-             <code>
-             <![CDATA[
-             SQLiteConnection connection = Database.dbConnection;
-            
-             Categories categories = new Categories(connection, true);
-            
-             categories.Add("Work", Category.CategoryType.Event);
-            
-             List<Category> list = categories.List();
-             ]]>
-             </code>
-             </example>
+            <summary>
+            Manages the collection of Category objects stored in the SQLite database
+            Provides functionality to add, delete, update, and retrieve categories
+            </summary>
         </member>
         <member name="M:Calendar.Categories.#ctor(System.Data.SQLite.SQLiteConnection,System.Boolean)">
-             <summary>
-             Initializes a new instance of the Categories class.
-             </summary>
-             <param name="con">An open SQLite database connection.</param>
-             <param name="newDB">Indicates whether the database is newly created.</param>
-             <example>
-             <code>
-             <![CDATA[
-             SQLiteConnection connection = Database.dbConnection;
-            
-             Categories categories = new Categories(connection, true);
-             ]]>
-             </code>
-             </example>
+            <summary>
+            Initializes a new instance of the Categories class.
+            </summary>
+            <param name="con">An open SQLite database connection.</param>
+            <param name="newDB">Indicates whether the database is newly created.</param>
         </member>
         <member name="M:Calendar.Categories.GetCategoryFromId(System.Int32)">
-             <summary>
-             Retrieves a category using its ID.
-             </summary>
-             <param name="i">The category ID.</param>
-             <returns>The matching Category.</returns>
-             <example>
-             <code>
-             <![CDATA[
-             Categories categories = new Categories(Database.dbConnection, false);
-            
-             Category category = categories.GetCategoryFromId(1);
-            
-             Console.WriteLine(category.Description);
-             ]]>
-             </code>
-             </example>
+            <summary>
+            Retrieves a category using its ID.
+            </summary>
         </member>
         <member name="M:Calendar.Categories.SetCategoriesToDefaults">
-             <summary>
-             Clears existing category tables and inserts the default categories.
-             </summary>
-             <example>
-             <code>
-             <![CDATA[
-             Categories categories = new Categories(Database.dbConnection, false);
-            
-             categories.SetCategoriesToDefaults();
-             ]]>
-             </code>
-             </example>
+            <summary>
+            Clears existing category tables and inserts the default categories.
+            </summary>
+        </member>
+        <member name="M:Calendar.Categories.ValidateCategoryInput(System.String,Calendar.Category.CategoryType)">
+            <summary>
+            Validates a category type description and enum value.
+            </summary>
         </member>
         <member name="M:Calendar.Categories.Add(System.String)">
-             <summary>
-             Adds a new category type
-             </summary>
-             <param name="desc">The description of the category type.</param>
-             <example>
-             <code>
-             <![CDATA[
-             Categories categories = new Categories(Database.dbConnection, false);
-            
-             categories.Add("Custom Type");
-             ]]>
-             </code>
-             </example>
+            <summary>
+            Adds a new category type row.
+            </summary>
         </member>
         <member name="M:Calendar.Categories.Add(System.String,Calendar.Category.CategoryType)">
-             <summary>
-             Adds a new category
-             </summary>
-             <param name="desc">The category description.</param>
-             <param name="type">The category type.</param>
-             <example>
-             <code>
-             <![CDATA[
-             Categories categories = new Categories(Database.dbConnection, false);
-            
-             categories.Add("Gym", Category.CategoryType.Event);
-             ]]>
-             </code>
-             </example>
+            <summary>
+            Adds a new category.
+            </summary>
         </member>
         <member name="M:Calendar.Categories.Delete(System.Int32)">
-             <summary>
-             Deletes a category and its related events.
-             </summary>
-             <param name="Id">The ID of the category to delete.</param>
-             <example>
-             <code>
-             <![CDATA[
-             Categories categories = new Categories(Database.dbConnection, false);
-            
-             categories.Delete(3);
-             ]]>
-             </code>
-             </example>
+            <summary>
+            Deletes a category and its related events.
+            </summary>
         </member>
         <member name="M:Calendar.Categories.List">
-             <summary>
-             Returns all categories in the database.
-             </summary>
-             <returns>A list of Category objects.</returns>
-             <example>
-             <code>
-             <![CDATA[
-             Categories categories = new Categories(Database.dbConnection, false);
-            
-             List<Category> categoriesList = categories.List();
-            
-             foreach (Category category in categoriesList)
-             {
-                 Console.WriteLine(category.Description);
-             }
-             ]]>
-             </code>
-             </example>
+            <summary>
+            Returns all categories in the database.
+            </summary>
         </member>
         <member name="M:Calendar.Categories.UpdateProperties(System.Int32,System.String,Calendar.Category.CategoryType)">
-             <summary>
-             Updates the description and type of a category.
-             </summary>
-             <param name="id">The category ID.</param>
-             <param name="newDescr">The new description.</param>
-             <param name="type">The new category type.</param>
-             <example>
-             <code>
-             <![CDATA[
-             Categories categories = new Categories(Database.dbConnection, false);
-            
-             categories.UpdateProperties(2, "Updated Category", Category.CategoryType.Event);
-             ]]>
-             </code>
-             </example>
+            <summary>
+            Updates the description and type of a category.
+            </summary>
         </member>
         <member name="T:Calendar.Category">
             <summary>
@@ -701,13 +600,9 @@
             <example>
             <code>
             <![CDATA[
-            
             Events events = new Events(connection, true);
-            
-            events.Add(1, 90, "2026-03-25", "basketball session")
-            
+            events.Add(1, 90, "2026-03-25", "basketball session");
             List<Event> allEvents = events.List();
-            
             ]]>
             </code>
             </example>
@@ -722,116 +617,38 @@
             Creates an instance of Events connected to the database.
             </summary>
             <param name="con">The connection to the database.</param>
-            <param name="newDB">If true, a new database is initiliazed. Else, the existing one is used.</param>
-            <example>
-            <code>
-            <![CDATA[
-            
-            Events events = new Events(connection, false);
-            
-            ]]>
-            </code>
-            </example>
+            <param name="newDB">If true, a new database is initialized. Else, the existing one is used.</param>
         </member>
         <member name="M:Calendar.Events.List">
             <summary>
             Retrieves all events in the database as a list of Event objects.
             </summary>
             <returns>List of Event objects in the database.</returns>
-            <example>
-            <code>
-            <![CDATA[
-            
-            Events events = new Events(connection, false);
-            
-            List<Event> allEvents = events.List();
-            
-            // allEvents[0].Id = 1
-            // allEvents[0].Details = "basketball session"
-            
-            ]]>
-            </code>
-            </example>
+        </member>
+        <member name="M:Calendar.Events.ValidateEventInput(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Validates user input for creating a new event.
+            </summary>
         </member>
         <member name="M:Calendar.Events.Add(System.Int32,System.Int32,System.String,System.String)">
             <summary>
             Adds a new Event object to the database.
             </summary>
-            <param name="category">The int ID of the category of the event.</param>
-            <param name="duration">The duration of the event in minutes.</param>
-            <param name="date">The start date and time of the event.</param>
-            <param name="details">The description/details of the event.</param>
-            <example>
-            <code>
-            <![CDATA[
-            
-            Events events = new Events(connection, false);
-            
-            events.Add(1, 90, "2026-03-25", "basketball session")
-            
-            ]]>
-            </code>
-            </example>
         </member>
         <member name="M:Calendar.Events.Delete(System.Int32)">
             <summary>
             Deletes an event with the specified ID from the database.
             </summary>
-            <param name="Id">The int ID of the event to delete.</param>
-            <example>
-            <code>
-            <![CDATA[
-            
-            Events events = new Events(connection, false);
-            
-            events.Delete(1);
-            
-            ]]>
-            </code>
-            </example>
         </member>
         <member name="M:Calendar.Events.UpdateEvent(System.Int32,System.Int32,System.Double,System.DateTime,System.String)">
             <summary>
             Updates an existing event with new values.
             </summary>
-            <param name="eventId">The ID of the event to delete.</param>
-            <param name="categoryId">The new category ID for the event.</param>
-            <param name="duration">The new duration of the event.</param>
-            <param name="date">The new start date time of the event.</param>
-            <param name="details">The new description/details of the event.</param>
-            <example>
-            <code>
-            <![CDATA[
-            
-            Events events = new Events(connection, false);
-            
-            events.UpdateEvent(1, 2, 360, new DateTime(2026, 3, 27), "basketball tournament");
-            
-            ]]>
-            </code>
-            </example>
         </member>
         <member name="M:Calendar.Events.GetEventFromId(System.Int32)">
             <summary>
             Retrieves an event from its ID.
             </summary>
-            <param name="id">The ID of the event to retrieve.</param>
-            <returns>The Event object matching the ID.</returns>
-            <exception cref="T:System.Exception">Thrown when no event with the ID exists in the database.</exception>
-            <example>
-            <code>
-            <![CDATA[
-            
-            Events events = new Events(connection, false);
-            
-            Event event = events.GetEventFromId(1);
-            
-            // event.Id = 1
-            // event.Details = "basketball session"
-            
-            ]]>
-            </code>
-            </example>
         </member>
         <member name="T:Calendar.HomeCalendar">
              <summary>
