@@ -33,6 +33,12 @@
                 <TextBox x:Name="txtDuration" Width="200"/>
             </StackPanel>
         </GroupBox>
+        <GroupBox Header="Date and Time">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Date and Time" Margin="0,0,20,0"/>
+                <TextBox x:Name="txtDateTime" Width="200"/>
+            </StackPanel>
+        </GroupBox>
         
     </StackPanel>
 </Window>
