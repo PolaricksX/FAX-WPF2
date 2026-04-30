@@ -8,7 +8,7 @@ using Calendar;
 namespace FAX_WPF
 {
     /// <summary>
-    /// Represents a view for displaying and editing category information within a calendar application.
+    /// Represents a view for displaying and editing category information.
     /// </summary>
     public interface ICategoryView
     {
@@ -30,7 +30,7 @@ namespace FAX_WPF
         /// <code>
         /// <![CDATA[
         /// 
-        /// view.ShowMessage("Success!");
+        /// view.ShowMessage("Category created!");
         /// 
         /// ]]>
         /// </code>
