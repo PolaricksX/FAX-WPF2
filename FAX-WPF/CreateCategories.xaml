@@ -8,6 +8,7 @@
         Title="CreateCategories"  Width="350"
         SizeToContent="Height"
         WindowStartupLocation="CenterScreen">
+    <!-- Source: Aref's WPF demo from PIII Fall 2025 -->
     <StackPanel Margin="10">
 
         <TextBlock Text="Calendar App" FontSize="22"
