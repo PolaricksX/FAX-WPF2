@@ -48,7 +48,6 @@ public class CategoriesTests
         var categories = calendar.categories.List();
         Assert.NotNull(categories);
     }
-}
 
 public class EventsTests
 {

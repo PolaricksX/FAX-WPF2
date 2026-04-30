@@ -15,14 +15,34 @@ using System.Windows.Shapes;
 namespace FAX_WPF
 {
     /// <summary>
-    /// Interaction logic for CreateCategories.xaml
+    /// Represents a window that allows users to create and manage categories.
     /// </summary>
+    /// <remarks>
+    /// This window implements the ICategory interface 
+    /// and interacts with the CategoryPresenter 
+    /// to validate and save user-created categories.
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// <![CDATA[
+    /// var mainPresenter = new MainPresenter();
+    /// 
+    /// var createCatWindow = new CreateCategories(mainPresenter);
+    /// 
+    /// createCatWindow.ShowDialog();
+    /// ]]>
+    /// </code>
+    /// </example>
     public partial class CreateCategories : Window, ICategoryView
     {
         private Calendar.Category.CategoryType _selectedCategoryType;
         private CategoryPresenter _catPresenter;
         private bool _suppressCategoryCheckboxEvents;
 
+        /// <summary>
+        /// Initializes a new instance of the CreateCategories form using the specified main presenter.
+        /// </summary>
+        /// <param name="p">The main presenter that coordinates application logic and provides access to the category presenter.</param>
         public CreateCategories(MainPresenter p)
         {
             InitializeComponent();
@@ -37,6 +57,9 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the description text entered by the user.
+        /// </summary>
         public string Description
         {
             get
@@ -56,6 +79,9 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the currently selected category type for the calendar entry.
+        /// </summary>
         public Calendar.Category.CategoryType SelectedCategoryType
         {
            get
@@ -64,7 +90,7 @@ namespace FAX_WPF
             }
             set
             {
-                _suppressCategoryCheckboxEvents = true;
+                _suppressCategoryCheckboxEvents = true; // Allows the user to uncheck a box without immediately re-checking it when the value is set to default
                 _selectedCategoryType = value;
 
                 cbEvent.IsChecked = value == Calendar.Category.CategoryType.Event;
@@ -93,7 +119,7 @@ namespace FAX_WPF
                 return;
             }
 
-            _suppressCategoryCheckboxEvents = true;
+            _suppressCategoryCheckboxEvents = true; 
             cbEvent.IsChecked = cb.Name == nameof(cbEvent);
             cbAllDayEvent.IsChecked = cb.Name == nameof(cbAllDayEvent);
             cbHoliday.IsChecked = cb.Name == nameof(cbHoliday);
@@ -119,6 +145,10 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Displays a message box that shows the specified text to the user.
+        /// </summary>
+        /// <param name="message">The text to display in the message box.</param>
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);

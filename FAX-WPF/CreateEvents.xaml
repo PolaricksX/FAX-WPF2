@@ -8,6 +8,7 @@
         Title="Create Event" Width="420" MinWidth="320"
         WindowStartupLocation="CenterOwner"
         SizeToContent="Height">
+    <!-- Source: Aref's WPF demo from PIII Fall 2025-->
     <StackPanel Margin="12">
         <TextBlock Text="Calendar App" FontSize="22" HorizontalAlignment="Center"/>
         <TextBlock Text="Create Event" FontSize="15" HorizontalAlignment="Center"/>

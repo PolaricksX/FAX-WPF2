@@ -15,8 +15,23 @@ using System.Runtime.Versioning;
 namespace FAX_WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Main window for the FAX Calendar application.
+    /// Provides UI for theme selection, calendar file management, and navigation.
+    /// Implements IMainView interface for MVP pattern.
     /// </summary>
+    /// <example>
+    /// <code>
+    /// <![CDATA[
+    /// // Create a new MainWindow with an existing calendar
+    /// MainWindow mainWindow = new MainWindow("C:\\Users\\Documents\\Calendars\\Work.calendar", false);
+    /// mainWindow.Show();
+    /// 
+    /// // Create a new MainWindow with a new database
+    /// MainWindow newWindow = new MainWindow("C:\\Users\\Documents\\Calendars\\NewCal.calendar", true);
+    /// newWindow.Show();
+    /// ]]>
+    /// </code>
+    /// </example>
     public partial class MainWindow : Window, IMainView
     {
         private MainPresenter _mainPresenter;
@@ -90,6 +105,22 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the MainWindow class with a specific calendar file.
+        /// </summary>
+        /// <param name="filename">Path to the calendar database file</param>
+        /// <param name="newDB">True if creating a new database, false if opening existing</param>
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// // Open an existing calendar file
+        /// MainWindow window = new MainWindow("C:\\Users\\Documents\\Calendars\\Work.calendar", false);
+        /// 
+        /// // Create a new calendar database
+        /// MainWindow newWindow = new MainWindow("C:\\Users\\Documents\\Calendars\\Personal.calendar", true);
+        /// ]]>
+        /// </code>
+        /// </example>
         public MainWindow(string filename, bool newDB)
         {
             InitializeComponent();
@@ -112,6 +143,30 @@ namespace FAX_WPF
             ApplyTheme(selectedItem.Content?.ToString() ?? "Soft Blue");
         }
 
+        /// <summary>
+        /// Applies a color theme to the application by updating resource brushes.
+        /// </summary>
+        /// <remarks>
+        /// https://learn.microsoft.com/en-us/dotnet/api/system.windows.media.colorconverter.convertfromstring?view=windowsdesktop-10.0
+        /// https://learn.microsoft.com/en-us/dotnet/api/system.windows.media.solidcolorbrush?view=windowsdesktop-10.0
+        /// </remarks>
+        /// <param name="themeName">Name of the theme ("High Contrast" or "Soft Blue")</param>
+        /// <example>
+        /// 
+        /// <code>
+        /// <![CDATA[
+        /// // Apply Soft Blue theme
+        /// ApplyTheme("Soft Blue");
+        /// 
+        /// // Apply High Contrast theme
+        /// ApplyTheme("High Contrast");
+        /// 
+        /// // Result: All brushes in Application.Current.Resources are updated
+        /// var background = (SolidColorBrush)Application.Current.Resources["AppBackgroundBrush"];
+        /// // background.Color will be #F7FAFC for Soft Blue or #121417 for High Contrast
+        /// ]]>
+        /// </code>
+        /// </example>
         private static void ApplyTheme(string themeName)
         {
             if (themeName == "High Contrast")
@@ -137,6 +192,25 @@ namespace FAX_WPF
             SetBrush("InputBackgroundBrush", "#FFFFFF");
         }
 
+        /// <summary>
+        /// Updates an application resource brush with a new color.
+        /// </summary>
+        /// <param name="key">Resource dictionary key for the brush</param>
+        /// <param name="hexColor">Hex color value (e.g., "#FFFFFF")</param>
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// // Set background to white
+        /// SetBrush("AppBackgroundBrush", "#FFFFFF");
+        /// 
+        /// // Set primary color to blue
+        /// SetBrush("PrimaryBrush", "#2F6F8F");
+        /// 
+        /// // Later access in XAML
+        /// // <Border Background="{DynamicResource AppBackgroundBrush}" />
+        /// ]]>
+        /// </code>
+        /// </example>
         private static void SetBrush(string key, string hexColor)
         {
             var parsedColor = ColorConverter.ConvertFromString(hexColor);
@@ -148,6 +222,22 @@ namespace FAX_WPF
             Application.Current.Resources[key] = new SolidColorBrush(color);
         }
 
+        /// <summary>
+        /// Handles the Exit App button click event.
+        /// Shuts down the entire application.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event</param>
+        /// <param name="e">Routed event arguments</param>
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// // In XAML:
+        /// <Button Content="Exit App" Click="ExitApp_Click" />
+        /// 
+        /// // When clicked, application closes completely
+        /// ]]>
+        /// </code>
+        /// </example>
         private void ExitApp_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Are you sure you want to exit?", "Confirm Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -157,11 +247,53 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Displays a message to the user in a message box.
+        /// Implements IMainView.ShowMessage.
+        /// </summary>
+        /// <param name="message">Message text to display</param>
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// // Display a simple message
+        /// ShowMessage("Calendar saved successfully!");
+        /// 
+        /// // Display an error message
+        /// ShowMessage("Error: File not found");
+        /// ]]>
+        /// </code>
+        /// </example>
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
         }
 
+        /// <summary>
+        /// Handles the Select Calendar button click event.
+        /// Opens a file dialog to select an existing calendar file.
+        /// Saves the selected file path to user settings and registry.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event</param>
+        /// <param name="e">Routed event arguments</param>
+        /// <remarks>
+        /// Uses the last used directory if available, otherwise defaults to Documents/Calendars.
+        /// https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.openfiledialog
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// // In XAML:
+        /// <Button Content="Select Calendar" Click="SelectCalendar_Click"/>
+        /// 
+        /// // When clicked:
+        /// // 1. Opens file dialog starting at last used directory (or Documents/Calendars)
+        /// // 2. User selects "Work.calendar"
+        /// // 3. Path saved to Properties.Settings.Default.LastUsedDirectory
+        /// // 4. Path saved to Registry: HKCU\SOFTWARE\FAX_WPF\LastUsedFile
+        /// // 5. tbInfo displays: "Opened: Work.calendar"
+        /// ]]>
+        /// </code>
+        /// </example>
         // https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.openfiledialog?view=windowsdesktop-10.0
         private void SelectCalendar_Click(object sender, RoutedEventArgs e)
         {
@@ -193,8 +325,6 @@ namespace FAX_WPF
             {
                 string selectedPath = openFileDialog.FileName;
 
-                // take that selectedPath and give it to the presenter??
-
                 // save the directory for next time
                 // https://learn.microsoft.com/en-us/dotnet/desktop/winforms/advanced/how-to-write-usersettings-at-run-time-with-csharp
                 Properties.Settings.Default.LastUsedDirectory = System.IO.Path.GetDirectoryName(selectedPath);
@@ -209,6 +339,32 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Handles the Save Calendar button click event.
+        /// Opens a file dialog to create a new calendar file.
+        /// Creates the file and saves its path to the registry.
+        /// </summary>
+        /// <param name="sender">The button that triggered the event</param>
+        /// <param name="e">Routed event arguments</param>
+        /// <remarks>
+        /// Creates the Calendars folder in Documents if it doesn't exist.
+        /// https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create
+        /// </remarks>
+        /// <example>
+        /// <code>
+        /// <![CDATA[
+        /// // In XAML:
+        /// <Button Content="Save Calendar" Click="SaveCalendar_Click"/>
+        /// 
+        /// // When clicked:
+        /// // 1. Opens save dialog with default name "MyCalendar.calendar"
+        /// // 2. User changes name to "WorkCalendar.calendar"
+        /// // 3. Creates empty file at C:\Users\<username>\Documents\Calendars\WorkCalendar.calendar
+        /// // 4. Saves path to Registry
+        /// // 5. tbInfo displays: "Created: C:\Users\<username>\Documents\Calendars\WorkCalendar.calendar"
+        /// ]]>
+        /// </code>
+        /// </example>
         private void SaveCalendar_Click(object sender, RoutedEventArgs e)
         {
             string docPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
@@ -231,7 +387,6 @@ namespace FAX_WPF
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                // this is the full path the user chose (e.g., .../Documents/Calendars/Work.db)
                 string finalPath = saveFileDialog.FileName;
 
                 //https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-10.0 creating file
@@ -277,5 +432,3 @@ namespace FAX_WPF
         }
     }
 }
-
-
