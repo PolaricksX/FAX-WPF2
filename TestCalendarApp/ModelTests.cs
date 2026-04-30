@@ -1,3 +1,4 @@
+using System;
 using Calendar;
 using FAX;
 using Xunit;
@@ -58,7 +59,7 @@ public class CategoriesTests
     {
         // Arrange
         var calendar = new HomeCalendar("test.calendar", true);
-        var description = "Test Category";
+        var description = "TestCategory_Add";
         var type = Category.CategoryType.Event;
 
         // Act
@@ -66,46 +67,38 @@ public class CategoriesTests
 
         // Assert
         var categories = calendar.categories.List();
-        bool found = false;
-        foreach (var cat in categories)
+        Assert.Contains(categories, category =>
+            category.Description == description && category.Type == type);
+    }
+
+    public class EventsTests
+    {
+        [Fact]
+        public void Events_List_ReturnsExpectedEvents()
         {
-            if (cat.Description == description && cat.CategoryType == type)
-            {
-                found = true;
-                break;
-            }
+            // Arrange
+            var calendar = new HomeCalendar("test.calendar", true);
+
+            // Act
+            var events = calendar.events.List();
+
+            // Assert
+            Assert.NotNull(events);
         }
-        Assert.True(found);
-    }
-}
 
-public class EventsTests
-{
-    [Fact]
-    public void Events_List_ReturnsExpectedEvents()
-    {
-        // Arrange
-        var calendar = new HomeCalendar("test.calendar", true);
+        [Fact]
+        public void Events_Add_AddsEvent()
+        {
+            // Arrange
+            var calendar = new HomeCalendar("test.calendar", true);
+            calendar.categories.Add("Test Category", Category.CategoryType.Event);
 
-        // Act
-        var events = calendar.events.List();
+            // Act
+            calendar.events.Add(1, 60, "2026-04-29 14:00:00", "Test event");
 
-        // Assert
-        Assert.NotNull(events);
-    }
-
-    [Fact]
-    public void Events_Add_AddsEvent()
-    {
-        // Arrange
-        var calendar = new HomeCalendar("test.calendar", true);
-        calendar.categories.Add("Test Category", Category.CategoryType.Event);
-
-        // Act
-        calendar.events.Add(1, 60, "2026-04-29 14:00:00", "Test event");
-
-        // Assert
-        var events = calendar.events.List();
-        Assert.NotEmpty(events);
+            // Assert
+            var events = calendar.events.List();
+            Assert.NotEmpty(events);
+        }
     }
 }
