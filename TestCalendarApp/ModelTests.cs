@@ -66,8 +66,16 @@ public class CategoriesTests
 
         // Assert
         var categories = calendar.categories.List();
-        Assert.Contains(categories, category =>
-            category.Description == description && category.CategoryType == type);
+        bool found = false;
+        foreach (var cat in categories)
+        {
+            if (cat.Description == description && cat.CategoryType == type)
+            {
+                found = true;
+                break;
+            }
+        }
+        Assert.True(found);
     }
 }
 
