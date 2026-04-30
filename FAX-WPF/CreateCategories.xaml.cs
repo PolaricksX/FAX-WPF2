@@ -15,14 +15,23 @@ using System.Windows.Shapes;
 namespace FAX_WPF
 {
     /// <summary>
-    /// Interaction logic for CreateCategories.xaml
+    /// Represents a window that allows users to create and manage categories.
     /// </summary>
+    /// <remarks>
+    /// This window implements the ICategory interface 
+    /// and interacts with the CategoryPresenter 
+    /// to validate and save user-created categories.
+    /// </remarks>
     public partial class CreateCategories : Window, ICategoryView
     {
         private Calendar.Category.CategoryType _selectedCategoryType;
         private CategoryPresenter _catPresenter;
         private bool _suppressCategoryCheckboxEvents;
 
+        /// <summary>
+        /// Initializes a new instance of the CreateCategories form using the specified main presenter.
+        /// </summary>
+        /// <param name="p">The main presenter that coordinates application logic and provides access to the category presenter.</param>
         public CreateCategories(MainPresenter p)
         {
             InitializeComponent();
@@ -37,6 +46,9 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the description text entered by the user.
+        /// </summary>
         public string Description
         {
             get
@@ -56,6 +68,9 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the currently selected category type for the calendar entry.
+        /// </summary>
         public Calendar.Category.CategoryType SelectedCategoryType
         {
            get
@@ -119,6 +134,10 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Displays a message box that shows the specified text to the user.
+        /// </summary>
+        /// <param name="message">The text to display in the message box.</param>
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
