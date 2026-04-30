@@ -12,6 +12,17 @@ namespace FAX_WPF
     /// <summary>
     /// Coordinates the logic between the view of category and the home calendar model.
     /// </summary>
+    /// <example>
+    /// <code>
+    /// <![CDATA[
+    /// ICategoryView view = new CreateCategories(mainPresenter);
+    /// 
+    /// HomeCalendar model = new HomeCalendar("calendar.db");
+    /// 
+    /// CategoryPresenter presenter = new CategoryPresenter(view, model);
+    /// ]]>
+    /// </code>
+    /// </example>
     internal class CategoryPresenter
     {
         private readonly ICategoryView _view;
