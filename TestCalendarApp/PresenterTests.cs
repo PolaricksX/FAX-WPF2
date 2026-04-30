@@ -1,5 +1,8 @@
 using FAX_WPF;
 using TestCalendarApp;
+using Xunit;
+
+namespace TestCalendarApp;
 
 public class MainPresenterTests
 {
@@ -7,7 +10,7 @@ public class MainPresenterTests
     public void MainPresenter_CreatesInstance()
     {
         // Arrange
-        var mainPresenter = CreateMainPresenter();
+            var mainPresenter = CreateMainPresenter("MainPresenterTest_CreatesInstance");
 
         // Assert
         Assert.NotNull(mainPresenter);
@@ -18,7 +21,7 @@ public class MainPresenterTests
     public void MainPresenter_GetEventsPresenter_ReturnsEventsPresenter()
     {
         // Arrange
-        var mainPresenter = CreateMainPresenter();
+            var mainPresenter = CreateMainPresenter("MainPresenterTest_GetEventsPresenter");
         var eventView = CreateSampleEventView();
 
         // Act
@@ -33,7 +36,7 @@ public class MainPresenterTests
     public void MainPresenter_GetCategoryPresenter_ReturnsCategoryPresenter()
     {
         // Arrange
-        var mainPresenter = CreateMainPresenter();
+        var mainPresenter = CreateMainPresenter("MainPresenterTest_GetCategoryPresenter");
         var categoryView = new CategoryViewTest();
 
         // Act
@@ -44,9 +47,9 @@ public class MainPresenterTests
         Assert.IsType<CategoryPresenter>(categoryPresenter);
     }
 
-    private static MainPresenter CreateMainPresenter()
+    private static MainPresenter CreateMainPresenter(string filename)
     {
-        return new MainPresenter(new MainViewTest(), "test.calendar", true);
+        return new MainPresenter(new MainViewTest(), filename + ".calendar", true);
     }
 
     private static EventViewTest CreateSampleEventView()
