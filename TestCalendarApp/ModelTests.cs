@@ -1,3 +1,4 @@
+using System;
 using Calendar;
 using FAX;
 using Xunit;
@@ -58,7 +59,7 @@ public class CategoriesTests
     {
         // Arrange
         var calendar = new HomeCalendar("test.calendar", true);
-        var description = "Test Category";
+        var description = "TestCategory_Add";
         var type = Category.CategoryType.Event;
 
         // Act
@@ -67,37 +68,37 @@ public class CategoriesTests
         // Assert
         var categories = calendar.categories.List();
         Assert.Contains(categories, category =>
-            category.Description == description && category.CategoryType == type);
-    }
-}
-
-public class EventsTests
-{
-    [Fact]
-    public void Events_List_ReturnsExpectedEvents()
-    {
-        // Arrange
-        var calendar = new HomeCalendar("test.calendar", true);
-
-        // Act
-        var events = calendar.events.List();
-
-        // Assert
-        Assert.NotNull(events);
+            category.Description == description && category.Type == type);
     }
 
-    [Fact]
-    public void Events_Add_AddsEvent()
+    public class EventsTests
     {
-        // Arrange
-        var calendar = new HomeCalendar("test.calendar", true);
-        calendar.categories.Add("Test Category", Category.CategoryType.Event);
+        [Fact]
+        public void Events_List_ReturnsExpectedEvents()
+        {
+            // Arrange
+            var calendar = new HomeCalendar("test.calendar", true);
 
-        // Act
-        calendar.events.Add(1, 60, "2026-04-29 14:00:00", "Test event");
+            // Act
+            var events = calendar.events.List();
 
-        // Assert
-        var events = calendar.events.List();
-        Assert.NotEmpty(events);
+            // Assert
+            Assert.NotNull(events);
+        }
+
+        [Fact]
+        public void Events_Add_AddsEvent()
+        {
+            // Arrange
+            var calendar = new HomeCalendar("test.calendar", true);
+            calendar.categories.Add("Test Category", Category.CategoryType.Event);
+
+            // Act
+            calendar.events.Add(1, 60, "2026-04-29 14:00:00", "Test event");
+
+            // Assert
+            var events = calendar.events.List();
+            Assert.NotEmpty(events);
+        }
     }
 }
