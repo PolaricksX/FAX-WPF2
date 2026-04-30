@@ -22,6 +22,17 @@ namespace FAX_WPF
     /// and interacts with the CategoryPresenter 
     /// to validate and save user-created categories.
     /// </remarks>
+    /// <example>
+    /// <code>
+    /// <![CDATA[
+    /// var mainPresenter = new MainPresenter();
+    /// 
+    /// var createCatWindow = new CreateCategories(mainPresenter);
+    /// 
+    /// createCatWindow.ShowDialog();
+    /// ]]>
+    /// </code>
+    /// </example>
     public partial class CreateCategories : Window, ICategoryView
     {
         private Calendar.Category.CategoryType _selectedCategoryType;
