@@ -90,7 +90,7 @@ namespace FAX_WPF
             }
             set
             {
-                _suppressCategoryCheckboxEvents = true;
+                _suppressCategoryCheckboxEvents = true; // Allows the user to uncheck a box without immediately re-checking it when the value is set to default
                 _selectedCategoryType = value;
 
                 cbEvent.IsChecked = value == Calendar.Category.CategoryType.Event;
@@ -119,7 +119,7 @@ namespace FAX_WPF
                 return;
             }
 
-            _suppressCategoryCheckboxEvents = true;
+            _suppressCategoryCheckboxEvents = true; 
             cbEvent.IsChecked = cb.Name == nameof(cbEvent);
             cbAllDayEvent.IsChecked = cb.Name == nameof(cbAllDayEvent);
             cbHoliday.IsChecked = cb.Name == nameof(cbHoliday);
