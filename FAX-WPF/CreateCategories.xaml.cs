@@ -21,6 +21,7 @@ namespace FAX_WPF
     {
         private Calendar.Category.CategoryType _selectedCategoryType;
         private CategoryPresenter _catPresenter;
+        private bool _suppressCategoryCheckboxEvents;
 
         public CreateCategories(MainPresenter p)
         {
@@ -63,46 +64,55 @@ namespace FAX_WPF
             }
             set
             {
+                _suppressCategoryCheckboxEvents = true;
                 _selectedCategoryType = value;
 
-                switch (value)
-                {
-                    case Calendar.Category.CategoryType.Event:
-                        cbEvent.IsChecked = true;
-                        break;
-                    case Calendar.Category.CategoryType.AllDayEvent:
-                        cbAllDayEvent.IsChecked = true; 
-                        break;
-                    case Calendar.Category.CategoryType.Holiday:
-                        cbHoliday.IsChecked = true;
-                        break;
-                    case Calendar.Category.CategoryType.Availability:
-                        cbAvailability.IsChecked = true;
-                        break;
-                }
+                cbEvent.IsChecked = value == Calendar.Category.CategoryType.Event;
+                cbAllDayEvent.IsChecked = value == Calendar.Category.CategoryType.AllDayEvent;
+                cbHoliday.IsChecked = value == Calendar.Category.CategoryType.Holiday;
+                cbAvailability.IsChecked = value == Calendar.Category.CategoryType.Availability;
+                _suppressCategoryCheckboxEvents = false;
             }
         }
 
         private void CategoryCheckBox_Changed(object sender, RoutedEventArgs e)
         {
+            if (_suppressCategoryCheckboxEvents)
+            {
+                return;
+            }
+
             if (sender is not CheckBox cb)
             {
                 return;
             }
 
+            if (cb.IsChecked == false)
+            {
+                _selectedCategoryType = default;
+                return;
+            }
+
+            _suppressCategoryCheckboxEvents = true;
+            cbEvent.IsChecked = cb.Name == nameof(cbEvent);
+            cbAllDayEvent.IsChecked = cb.Name == nameof(cbAllDayEvent);
+            cbHoliday.IsChecked = cb.Name == nameof(cbHoliday);
+            cbAvailability.IsChecked = cb.Name == nameof(cbAvailability);
+            _suppressCategoryCheckboxEvents = false;
+
             switch (cb.Name)
             {
-                case "cbEvent":
-                    SelectedCategoryType = Calendar.Category.CategoryType.Event;
+                case nameof(cbEvent):
+                    _selectedCategoryType = Calendar.Category.CategoryType.Event;
                     break;
-                case "cbAllDayEvent":
-                    SelectedCategoryType = Calendar.Category.CategoryType.AllDayEvent;
+                case nameof(cbAllDayEvent):
+                    _selectedCategoryType = Calendar.Category.CategoryType.AllDayEvent;
                     break;
-                case "cbHoliday":
-                    SelectedCategoryType = Calendar.Category.CategoryType.Holiday;
+                case nameof(cbHoliday):
+                    _selectedCategoryType = Calendar.Category.CategoryType.Holiday;
                     break;
-                case "cbAvailability":
-                    SelectedCategoryType = Calendar.Category.CategoryType.Availability;
+                case nameof(cbAvailability):
+                    _selectedCategoryType = Calendar.Category.CategoryType.Availability;
                     break;
                 default:
                     break;

@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Runtime.Versioning;
 
 namespace FAX_WPF
 {
@@ -18,25 +19,92 @@ namespace FAX_WPF
     /// </summary>
     public partial class MainWindow : Window, IMainView
     {
-            public MainWindow()
+        private MainPresenter _mainPresenter;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            // If a previous file is stored in the registry, open it automatically and skip prompts
+            string previousFile = null;
+            try
             {
-                InitializeComponent();
+                using var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"SOFTWARE\FAX_WPF");
+                previousFile = key?.GetValue("LastUsedFile") as string;
             }
-            public MainWindow(string filename, bool newDB)
+            catch
             {
-                InitializeComponent();
-                _ = new MainPresenter(this, filename, newDB);
-                ApplyTheme("Soft Blue");
+                previousFile = null;
             }
 
-        private void cmbTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
+            if (!string.IsNullOrEmpty(previousFile) && System.IO.File.Exists(previousFile))
+            {
+                _mainPresenter = new MainPresenter(this, previousFile, false);
+                infoTextBlock.Text = $"Opened: {System.IO.Path.GetFileName(previousFile)}";
+                return;
+            }
+
+            // Ask the user once whether they're a first-time user. If they are, prompt to create a calendar file.
+            var firstTime = MessageBox.Show(
+                "Is this your first time using the app?",
+                "Welcome",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (firstTime == MessageBoxResult.Yes)
+            {
+                var savefile = new SaveFileDialog()
+                {
+                    Title = "Create calendar file",
+                    Filter = "Calendar files (*.calendar)|*.calendar|All files (*.*)|*.*",
+                    DefaultExt = ".calendar",
+                    FileName = "MyCalendar"
+                };
+
+                if (savefile.ShowDialog() == true)
+                {
+                    string path = savefile.FileName;
+                    try
+                    {
+                        System.IO.File.Create(path).Close();
+                        Properties.Settings.Default.LastUsedDirectory = System.IO.Path.GetDirectoryName(path);
+                        Properties.Settings.Default.Save();
+                        SaveLastUsedFile(path);
+
+                        _mainPresenter = new MainPresenter(this, path, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Failed to create calendar file: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        _mainPresenter = new MainPresenter(this, null, false);
+                    }
+                }
+                else
+                {
+                    _mainPresenter = new MainPresenter(this, null, false);
+                }
+            }
+            else
+            {
+                // Not first time (or they chose No) — start app without creating a file
+                _mainPresenter = new MainPresenter(this, null, false);
+            }
+        }
+
+        public MainWindow(string filename, bool newDB)
         {
-            if (sender is not ComboBox cmb)
+            InitializeComponent();
+            _mainPresenter = new MainPresenter(this, filename, newDB);
+            ApplyTheme("Soft Blue");
+        }
+
+        private void ComboTheme_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is not ComboBox combo)
             {
                 return;
             }
 
-            if (cmb.SelectedItem is not ComboBoxItem selectedItem)
+            if (combo.SelectedItem is not ComboBoxItem selectedItem)
             {
                 return;
             }
@@ -82,7 +150,11 @@ namespace FAX_WPF
 
         private void ExitApp_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            var result = MessageBox.Show("Are you sure you want to exit?", "Confirm Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
         public void ShowMessage(string message)
@@ -128,9 +200,12 @@ namespace FAX_WPF
                 Properties.Settings.Default.LastUsedDirectory = System.IO.Path.GetDirectoryName(selectedPath);
                 Properties.Settings.Default.Save();
 
-                tbInfo.Text = $"Opened: {System.IO.Path.GetFileName(selectedPath)}";
+                infoTextBlock.Text = $"Opened: {System.IO.Path.GetFileName(selectedPath)}";
 
                 SaveLastUsedFile(selectedPath);
+                _mainPresenter = new MainPresenter(this, selectedPath, false);
+                var selections = new CalendarSelections(_mainPresenter);
+                selections.ShowDialog();
             }
         }
 
@@ -162,12 +237,13 @@ namespace FAX_WPF
                 //https://learn.microsoft.com/en-us/dotnet/api/system.io.file.create?view=net-10.0 creating file
                 File.Create(finalPath).Close();
 
-                tbInfo.Text = $"Created: {System.IO.Path.GetFullPath(finalPath)}";
+                infoTextBlock.Text = $"Created: {System.IO.Path.GetFullPath(finalPath)}";
 
                 SaveLastUsedFile(finalPath);
             }
         }
 
+        [SupportedOSPlatform("windows")]
         private static void SaveLastUsedFile(string filePath)
         {
             // https://learn.microsoft.com/en-us/dotnet/api/microsoft.win32.registry?view=net-10.0
@@ -175,6 +251,7 @@ namespace FAX_WPF
             key.SetValue("LastUsedFile", filePath);
         }
 
+        [SupportedOSPlatform("windows")]
         private void PreviousFile_Click(object sender, RoutedEventArgs e)
         {
             // https://learn.microsoft.com/en-us/dotnet/api/microsoft.win32.registry.currentuser?view=net-10.0#microsoft-win32-registry-currentuser
@@ -188,7 +265,15 @@ namespace FAX_WPF
                 return;
             }
 
-            tbInfo.Text = $"Opened: {System.IO.Path.GetFileName(lastusedFile)}";
+            infoTextBlock.Text = $"Opened: {System.IO.Path.GetFileName(lastusedFile)}";
+            _mainPresenter = new MainPresenter(this, lastusedFile, false);
+
+            var selections = new CalendarSelections(_mainPresenter)
+            {
+                Owner = this
+            };
+
+            selections.ShowDialog();
         }
     }
 }

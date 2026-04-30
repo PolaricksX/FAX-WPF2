@@ -21,10 +21,12 @@ namespace FAX_WPF
     /// </summary>
     public partial class CreateEvents : Window, IEventView
     {
-        private EventsPresenter _eventpresenter;
+        private readonly EventsPresenter _eventpresenter;
+        private readonly MainPresenter _mainPresenter;
         public CreateEvents(MainPresenter p)
         {
             InitializeComponent();
+            _mainPresenter = p;
             _eventpresenter = p.GetEventsPresenter(this);
 
             cmbCategoryName.DisplayMemberPath = nameof(Category.Description);
@@ -51,7 +53,10 @@ namespace FAX_WPF
 
         private void btnSave_Clicked(object sender, RoutedEventArgs e)
         {
-
+            if (_eventpresenter.SaveEvent())
+            {
+                Close();
+            }
         }
 
         private void btnCancel_Clicked(object sender, RoutedEventArgs e)
@@ -71,7 +76,7 @@ namespace FAX_WPF
 
         private void btnCreateCategory_Clicked(object sender, RoutedEventArgs e)
         {
-            CreateCategories createCategories = new CreateCategories();
+            CreateCategories createCategories = new CreateCategories(_mainPresenter);
             createCategories.Show();
             this.Close();
         }

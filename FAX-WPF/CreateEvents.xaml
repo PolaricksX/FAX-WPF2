@@ -5,66 +5,77 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FAX_WPF"
         mc:Ignorable="d"
-        Title="CreateEvents" Width="350"
-        WindowStartupLocation="CenterScreen"
+        Title="Create Event" Width="420" MinWidth="320"
+        WindowStartupLocation="CenterOwner"
         SizeToContent="Height">
-    <StackPanel Margin="10">
-        
-        <!-- Header for Window -->
-        <TextBlock Text="Calendar App" FontSize="22"
-                   HorizontalAlignment="Center"/>
-        <TextBlock Text="Create Event" FontSize="15"
-                   HorizontalAlignment="Center"/>
-        
-        <!-- Category: category for the event -->
+    <StackPanel Margin="12">
+        <TextBlock Text="Calendar App" FontSize="22" HorizontalAlignment="Center"/>
+        <TextBlock Text="Create Event" FontSize="15" HorizontalAlignment="Center"/>
+
+        <!-- Category -->
         <GroupBox Header="Category">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Category" Margin="0, 0, 20, 0"/>
-                <ComboBox x:Name="cmbCategoryName" 
-                          Width="200" 
-                          SelectionChanged="cmbCategoryName_SelectionChanged"/>
-            </StackPanel>
+            <Grid Margin="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center">Category</Label>
+                <ComboBox Grid.Column="1" x:Name="cmbCategoryName" SelectionChanged="cmbCategoryName_SelectionChanged" DisplayMemberPath="Description"/>
+            </Grid>
         </GroupBox>
-        
-        <!-- Category ID: ID of the event -->
+
+        <!-- Category ID -->
         <GroupBox Header="Category ID">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Category ID" Margin="0,0,20,0"/>
-                <TextBox x:Name="txtCategoryID" Width="200"/>
-            </StackPanel>
+            <Grid Margin="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center">Category ID</Label>
+                <TextBox Grid.Column="1" x:Name="txtCategoryID"/>
+            </Grid>
         </GroupBox>
-        
-        <!-- Duration: duration of the event in minutes -->
-        <GroupBox Header="Duration">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Duration" Margin="0,0,20,0"/>
-                <TextBox x:Name="txtDuration" Width="200"/>
-            </StackPanel>
+
+        <!-- Duration -->
+        <GroupBox Header="Duration (minutes)">
+            <Grid Margin="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center">Duration</Label>
+                <TextBox Grid.Column="1" x:Name="txtDuration"/>
+            </Grid>
         </GroupBox>
-        
-        <!-- Date and Time: time and date of the event -->
+
+        <!-- Date and Time -->
         <GroupBox Header="Date and Time">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Date and Time" Margin="0,0,20,0"/>
-                <TextBox x:Name="txtDateTime" Width="200"/>
-            </StackPanel>
+            <Grid Margin="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center">Date and Time</Label>
+                <TextBox Grid.Column="1" x:Name="txtDateTime"/>
+            </Grid>
         </GroupBox>
-        
-        <!-- Details: extra info of the event -->
+
+        <!-- Details -->
         <GroupBox Header="Details">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Details" Margin="0,0,20,0"/>
-                <TextBox x:Name="txtDetails" Width="200"/>
-            </StackPanel>
+            <Grid Margin="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center">Details</Label>
+                <TextBox Grid.Column="1" x:Name="txtDetails"/>
+            </Grid>
         </GroupBox>
-        
-        <!-- Save Event: button to save newly created event -->
-        <Button Content="Save Event" Margin="10" Click="btnSave_Clicked"/>
-        
-        <!-- Cancel Event: button to cancel creation of new event -->
-        <Button Content="Cancel Event" Margin="10" Click="btnCancel_Clicked"/>
-        
-        <!-- Create Category: button to go category creation window -->
-        <Button Content="Create Category" Margin="10" Click="btnCreateCategory_Clicked"/>
+
+        <StackPanel Orientation="Vertical" Margin="0,6,0,0">
+            <Button Content="Save Event" Click="btnSave_Clicked" Height="36" Background="#2F6F8F" Foreground="White" HorizontalAlignment="Stretch"/>
+            <Button Content="Cancel Event" Click="btnCancel_Clicked" Height="36" Margin="0,8,0,0" Background="#2F6F8F" Foreground="White" HorizontalAlignment="Stretch"/>
+            <Button Content="Create Category" Click="btnCreateCategory_Clicked" Height="36" Margin="0,8,0,0" Background="#2F6F8F" Foreground="White" HorizontalAlignment="Stretch"/>
+        </StackPanel>
     </StackPanel>
 </Window>
