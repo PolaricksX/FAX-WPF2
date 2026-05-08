@@ -56,6 +56,11 @@ namespace FAX_WPF
             return new CategoryPresenter(ev, _model);
         }
 
+        internal CalendarSelectionPresenter GetCalendarSelection(ICalendarSelectionView ev)
+        {
+            return new CalendarSelectionPresenter(ev, _model);
+        }
+
 
 
 

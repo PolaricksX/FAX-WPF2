@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Calendar;
 
 namespace FAX_WPF
 {
@@ -20,9 +21,10 @@ namespace FAX_WPF
     /// <remarks>
     /// It relies on a MainPresenter to handle the underlying data logic.
     /// </remarks>
-    public partial class CalendarSelections : Window
+    public partial class CalendarSelections : Window, ICalendarSelectionView
     {
         private readonly MainPresenter _mainPresenter;
+        private readonly CalendarSelectionPresenter _calPresenter;
 
         /// <summary>
         /// Creates a new instance of CalendarSelections class.
@@ -43,6 +45,20 @@ namespace FAX_WPF
         {
             InitializeComponent();
             _mainPresenter = mainPresenter;
+            _calPresenter = mainPresenter.GetCalendarSelection(this);
+            Loaded += CalendarSelections_Loaded;
+        }
+
+        private void CalendarSelections_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshEvents();
+        }
+
+        private void RefreshEvents()
+        {
+            var items = _calPresenter.GetEvents();
+            SetEvents(items);
+            SetSummary(items.Count, CalendarSelectionPresenter.GetTotalDuration(items));
         }
 
         private void BtnCreateCategory_Click(object sender, RoutedEventArgs e)
@@ -55,6 +71,18 @@ namespace FAX_WPF
         {
             var createEvents = new CreateEvents(_mainPresenter);
             createEvents.ShowDialog();
+            RefreshEvents();
+        }
+
+        public void SetEvents(List<Event> items)
+        {
+            dgEvents.ItemsSource = items;
+        }
+
+        public void SetSummary(int eventCount, double totalBusyTime)
+        {
+            txtEventCount.Text = eventCount.ToString();
+            txtBusyTime.Text = totalBusyTime.ToString("0.##");  
         }
     }
 }
