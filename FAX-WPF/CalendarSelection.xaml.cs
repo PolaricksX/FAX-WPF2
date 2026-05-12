@@ -54,6 +54,14 @@ namespace FAX_WPF
             RefreshEvents();
         }
 
+        /// <summary>
+        /// Handles the close button click.
+        /// </summary>
+        private void btnWindowClose_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         private void RefreshEvents()
         {
             var items = _calPresenter.GetEvents();
@@ -72,6 +80,17 @@ namespace FAX_WPF
             var createEvents = new CreateEvents(_mainPresenter);
             createEvents.ShowDialog();
             RefreshEvents();
+        }
+
+        private void dgEvents_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgEvents.SelectedItem is Event selectedEvent)
+            {
+                var createEvents = new CreateEvents(_mainPresenter);
+                createEvents.LoadEventForEditing(selectedEvent);
+                createEvents.ShowDialog();
+                RefreshEvents();
+            }
         }
 
         public void SetEvents(List<Event> items)

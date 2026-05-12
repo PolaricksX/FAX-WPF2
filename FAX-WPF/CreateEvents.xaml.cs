@@ -37,6 +37,9 @@ namespace FAX_WPF
     {
         private readonly EventsPresenter _eventpresenter;
         private readonly MainPresenter _mainPresenter;
+        private bool _hasUnsavedChanges = false;
+        private bool _isEditMode = false;
+        private Event _editingEvent = null;
 
         /// <summary>
         /// Initializes a new instance of the CreateEvents window.
@@ -61,6 +64,69 @@ namespace FAX_WPF
             {
                 cmbCategoryName.Items.Add(category);
             }
+
+            // Set default date to today
+            dpStartDate.SelectedDate = DateTime.Now;
+
+            // Register event handlers for change tracking
+            cmbCategoryName.SelectionChanged += Category_SelectionChanged;
+            txtDuration.TextChanged += Input_TextChanged;
+            dpStartDate.SelectedDateChanged += Date_SelectedDateChanged;
+            txtDetails.TextChanged += Input_TextChanged;
+        }
+
+        /// <summary>
+        /// Loads an existing event for editing.
+        /// </summary>
+        /// <param name="eventToEdit">The event to be edited</param>
+        public void LoadEventForEditing(Event eventToEdit)
+        {
+            _isEditMode = true;
+            _editingEvent = eventToEdit;
+            _hasUnsavedChanges = false;
+
+            // Update UI to reflect edit mode
+            txtSubtitle.Text = "Edit Event";
+            btnSave.Content = "Update Event";
+
+            // Populate fields with event data
+            CategoryId = eventToEdit.Category;
+            DurationMinutes = (int)eventToEdit.DurationInMinutes;
+            StartDateTime = eventToEdit.StartDateTime;
+            Details = eventToEdit.Details;
+        }
+
+        /// <summary>
+        /// Gets the event being edited (if in edit mode).
+        /// </summary>
+        public Event EditingEvent
+        {
+            get { return _editingEvent; }
+        }
+
+        /// <summary>
+        /// Tracks when input fields are modified to set unsaved changes flag.
+        /// </summary>
+        private void Input_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _hasUnsavedChanges = true;
+        }
+
+        /// <summary>
+        /// Tracks when date is modified to set unsaved changes flag.
+        /// </summary>
+        private void Date_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _hasUnsavedChanges = true;
+        }
+
+        /// <summary>
+        /// Tracks when category selection changes and sets unsaved changes flag.
+        /// </summary>
+        private void Category_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _hasUnsavedChanges = true;
+            cmbCategoryName_SelectionChanged(sender, e);
         }
 
         /// <summary>
@@ -75,51 +141,71 @@ namespace FAX_WPF
         }
 
         /// <summary>
-        /// Closes the window.
+        /// Handles the close button click.
         /// </summary>
-        private void btnClose(object sender, RoutedEventArgs e)
+        private void btnWindowClose_Clicked(object sender, RoutedEventArgs e)
         {
-            Close();
+            this.Close();
         }
 
         /// <summary>
-        /// Attempts to save the event through the presenter.
-        /// Closes the window if successful.
+        /// Handles the window closing event to check for unsaved changes.
         /// </summary>
-        /// <example>
-        /// <![CDATA[
-        /// // Triggered when user clicks Save
-        /// if (_eventpresenter.SaveEvent())
-        /// {
-        ///     Close();
-        /// }
-        /// ]]>
-        /// </example>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_hasUnsavedChanges)
+            {
+                var result = MessageBox.Show(
+                    "You have unsaved changes. Do you want to discard them?",
+                    "Unsaved Changes",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Handles date selection from date picker.
+        /// </summary>
+        private void dpStartDate_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _hasUnsavedChanges = true;
+        }
+
+        /// <summary>
+        /// Opens a calendar picker dialog for date selection.
+        /// </summary>
+        private void btnSelectDate_Clicked(object sender, RoutedEventArgs e)
+        {
+            // The DatePicker itself acts as the calendar picker
+            // This button can be used to focus the date picker
+            dpStartDate.Focus();
+        }
+
+        /// <summary>
+        /// Attempts to save or update the event through the presenter.
+        /// </summary>
         private void btnSave_Clicked(object sender, RoutedEventArgs e)
         {
-            if (_eventpresenter.SaveEvent())
+            if (_isEditMode && _editingEvent != null)
             {
-                Close();
+                _eventpresenter.UpdateEvent(_editingEvent);
+            }
+            else
+            {
+                _eventpresenter.SaveEvent();
             }
         }
 
         /// <summary>
         /// Prompts the user before cancelling event creation.
         /// </summary>
-        /// <example>
-        /// <![CDATA[
-        /// var result = MessageBox.Show(
-        ///     "Are you sure you would like to cancel?",
-        ///     "Closing Window",
-        ///     MessageBoxButton.YesNo,
-        ///     MessageBoxImage.Question
-        /// );
-        /// ]]>
-        /// </example>
         private void btnCancel_Clicked(object sender, RoutedEventArgs e)
         {
-            // source: https://learn.microsoft.com/en-us/dotnet/api/system.windows.forms.messageboxbuttons?view=windowsdesktop-10.0
-
             const string message = "Are you sure you would like to cancel?";
             const string caption = "Closing Window";
 
@@ -127,18 +213,39 @@ namespace FAX_WPF
 
             if (result == MessageBoxResult.Yes)
             {
+                _hasUnsavedChanges = false; // Don't prompt again
                 this.Close();
             }
         }
 
         /// <summary>
-        /// Opens the category creation window and closes the current one.
+        /// Opens the category creation window without closing the current one.
         /// </summary>
         private void btnCreateCategory_Clicked(object sender, RoutedEventArgs e)
         {
             CreateCategories createCategories = new CreateCategories(_mainPresenter);
-            createCategories.Show();
-            this.Close();
+            createCategories.ShowDialog();
+            
+            // Refresh categories list after category is created
+            cmbCategoryName.Items.Clear();
+            var categories = _eventpresenter.GetCategories();
+            foreach (var category in categories)
+            {
+                cmbCategoryName.Items.Add(category);
+            }
+        }
+
+        /// <summary>
+        /// Clears all input fields for creating a new event.
+        /// </summary>
+        public void ClearFields()
+        {
+            cmbCategoryName.SelectedIndex = -1;
+            txtCategoryID.Clear();
+            txtDuration.Clear();
+            dpStartDate.SelectedDate = DateTime.Now;
+            txtDetails.Clear();
+            _hasUnsavedChanges = false;
         }
 
         /// <summary>
@@ -157,31 +264,44 @@ namespace FAX_WPF
         {
             get
             {
-                if (cmbCategoryName.SelectedItem is Category category)
+                try
                 {
-                    return category.Id;
+                    if (cmbCategoryName.SelectedItem is Category category)
+                    {
+                        return category.Id;
+                    }
+                    else
+                    {
+                        return -1;
+                    }
                 }
-                else
+                catch
                 {
                     return -1;
                 }
             }
             set
             {
-                foreach (var item in cmbCategoryName.Items)
+                try
                 {
-                    if (item is Category category && category.Id == value)
+                    foreach (var item in cmbCategoryName.Items)
                     {
-                        cmbCategoryName.SelectedItem = item;
-                        break;
+                        if (item is Category category && category.Id == value)
+                        {
+                            cmbCategoryName.SelectedItem = item;
+                            break;
+                        }
                     }
+                }
+                catch
+                {
+                    cmbCategoryName.SelectedIndex = -1;
                 }
             }
         }
 
         /// <summary>
         /// Gets or sets the duration of the event in minutes.
-        /// Returns 0 if parsing fails.
         /// </summary>
         /// <example>
         /// <![CDATA[
@@ -193,28 +313,38 @@ namespace FAX_WPF
         {
             get
             {
-                if (int.TryParse(txtDuration.Text, out int duration))
+                try
                 {
-                    return duration;
+                    if (int.TryParse(txtDuration.Text, out int duration) && duration > 0)
+                    {
+                        return duration;
+                    }
+                    return 0;
                 }
-                else
+                catch
                 {
                     return 0;
                 }
             }
             set
             {
-                txtDuration.Text = value.ToString();
+                try
+                {
+                    txtDuration.Text = value.ToString();
+                }
+                catch
+                {
+                    txtDuration.Text = "0";
+                }
             }
         }
 
         /// <summary>
-        /// Gets or sets the start date and time of the event.
-        /// Returns DateTime.Now if parsing fails.
+        /// Gets or sets the start date of the event.
         /// </summary>
         /// <example>
         /// <![CDATA[
-        /// view.StartDateTime = DateTime.Now.AddHours(1);
+        /// view.StartDateTime = DateTime.Now.AddDays(1);
         /// DateTime start = view.StartDateTime;
         /// ]]>
         /// </example>
@@ -222,18 +352,26 @@ namespace FAX_WPF
         {
             get
             {
-                if (DateTime.TryParse(txtDateTime.Text, CultureInfo.CurrentCulture, System.Globalization.DateTimeStyles.None, out DateTime dt))
+                try
                 {
-                    return dt;
+                    DateTime selectedDate = dpStartDate.SelectedDate ?? DateTime.Now;
+                    return new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, 0, 0, 0, DateTimeKind.Local);
                 }
-                else
+                catch
                 {
                     return DateTime.Now;
                 }
             }
             set
             {
-                txtDateTime.Text = value.ToString();
+                try
+                {
+                    dpStartDate.SelectedDate = value.Date;
+                }
+                catch
+                {
+                    dpStartDate.SelectedDate = DateTime.Now;
+                }
             }
         }
 
@@ -250,18 +388,32 @@ namespace FAX_WPF
         {
             get
             {
-                if (txtDetails.Text != null)
+                try
                 {
-                    return txtDetails.Text;
+                    if (txtDetails.Text != null)
+                    {
+                        return txtDetails.Text;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
                 }
-                else
+                catch
                 {
                     return string.Empty;
                 }
             }
             set
             {
-                txtDetails.Text = value;
+                try
+                {
+                    txtDetails.Text = value;
+                }
+                catch
+                {
+                    txtDetails.Text = string.Empty;
+                }
             }
         }
 

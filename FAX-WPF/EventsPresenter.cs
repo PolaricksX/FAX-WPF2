@@ -28,37 +28,134 @@ namespace FAX_WPF
 
         /// <summary>
         /// Tries to save the current event using the data provided by the view.
+        /// Shows a confirmation dialog on success and prompts user for next action.
         /// </summary>
-        /// <remarks>If the save operation fails, an error message is displayed to the user.</remarks>
-        /// <returns>true if the event is saved successfully. Otherwise, false.</returns>
-        public bool SaveEvent()
+        /// <remarks>If the save operation fails, an error message is displayed to the user.
+        /// Validation of input is delegated to the model.</remarks>
+        public void SaveEvent()
         {
             try
             {
+                // Validate category selection
+                if (_view.CategoryId <= 0)
+                {
+                    _view.ShowMessage("Please select a valid category.");
+                    return;
+                }
+
+                // Validate duration
+                if (_view.DurationMinutes <= 0)
+                {
+                    _view.ShowMessage("Please enter a valid duration (must be greater than 0 minutes).");
+                    return;
+                }
+
+                // Validate details
+                if (string.IsNullOrWhiteSpace(_view.Details))
+                {
+                    _view.ShowMessage("Please provide event details.");
+                    return;
+                }
+
                 _model.events.Add(
                     _view.CategoryId,
                     _view.DurationMinutes,
                     _view.StartDateTime.ToString("yyyy-MM-dd HH:mm:ss"),
                     _view.Details);
 
-                _view.ShowMessage("Event saved successfully!");
-                return true;
+                var result = System.Windows.MessageBox.Show(
+                    "Event saved successfully! Do you want to create another event?",
+                    "Success",
+                    System.Windows.MessageBoxButton.YesNo,
+                    System.Windows.MessageBoxImage.Information);
+
+                if (result == System.Windows.MessageBoxResult.No)
+                {
+                    // Close the window through the view
+                    if (_view is System.Windows.Window window)
+                    {
+                        window.Close();
+                    }
+                }
+                else
+                {
+                    // Clear fields for next event
+                    if (_view is CreateEvents createEventsWindow)
+                    {
+                        createEventsWindow.ClearFields();
+                    }
+                }
             }
             catch(Exception ex)
             {
-                _view.ShowMessage($"Error saving event: {ex.Message}");
-                return false;
+                _view.ShowMessage($"Unable to save event. Please check your input: {ex.Message}");
             }
-
         }
 
         /// <summary>
         /// Retrieves a list of all available categories.
         /// </summary>
         /// <returns>A list of Category objects representing the available categories.</returns>
-        public  List<Category> GetCategories()
+        public List<Category> GetCategories()
         {
             return _model.categories.List();
+        }
+
+        /// <summary>
+        /// Updates an existing event with new values from the view.
+        /// Shows a confirmation dialog on success and closes the window.
+        /// </summary>
+        /// <remarks>If the update operation fails, an error message is displayed to the user.</remarks>
+        /// <param name="eventToUpdate">The event object to update (must have valid EventId)</param>
+        public void UpdateEvent(Event eventToUpdate)
+        {
+            try
+            {
+                // Validate category selection
+                if (_view.CategoryId <= 0)
+                {
+                    _view.ShowMessage("Please select a valid category.");
+                    return;
+                }
+
+                // Validate duration
+                if (_view.DurationMinutes <= 0)
+                {
+                    _view.ShowMessage("Please enter a valid duration (must be greater than 0 minutes).");
+                    return;
+                }
+
+                // Validate details
+                if (string.IsNullOrWhiteSpace(_view.Details))
+                {
+                    _view.ShowMessage("Please provide event details.");
+                    return;
+                }
+
+                // Call model's update method with all required parameters
+                _model.events.UpdateEvent(
+                    eventToUpdate.Id,
+                    _view.CategoryId,
+                    _view.DurationMinutes,
+                    _view.StartDateTime,
+                    _view.Details);
+
+                System.Windows.MessageBox.Show(
+                    "Event updated successfully!",
+                    "Success",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Information);
+
+                // Close the window
+                if (_view is System.Windows.Window window)
+                {
+                    window.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                _view.ShowMessage($"Unable to update event. Please check your input: {ex.Message}");
+            }
         }
 
     }

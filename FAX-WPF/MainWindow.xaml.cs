@@ -182,14 +182,14 @@ namespace FAX_WPF
                 return;
             }
 
-            SetBrush("AppBackgroundBrush", "#F7FAFC");
-            SetBrush("SurfaceBrush", "#FFFFFF");
+            SetBrush("AppBackgroundBrush", "#D4E8F0");
+            SetBrush("SurfaceBrush", "#E8F4F8");
             SetBrush("PrimaryBrush", "#2F6F8F");
             SetBrush("AccentBrush", "#4F7C6A");
             SetBrush("TextBrush", "#1F2933");
             SetBrush("DangerBrush", "#C0392B");
-            SetBrush("ControlBorderBrush", "#AAB6C3");
-            SetBrush("InputBackgroundBrush", "#FFFFFF");
+            SetBrush("ControlBorderBrush", "#7FA8C0");
+            SetBrush("InputBackgroundBrush", "#F5FAFC");
         }
 
         /// <summary>
@@ -245,6 +245,14 @@ namespace FAX_WPF
             {
                 Application.Current.Shutdown();
             }
+        }
+
+        /// <summary>
+        /// Handles the close button click.
+        /// </summary>
+        private void btnWindowClose_Clicked(object sender, RoutedEventArgs e)
+        {
+            ExitApp_Click(sender, e);
         }
 
         /// <summary>

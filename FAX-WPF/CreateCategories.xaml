@@ -5,34 +5,67 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FAX_WPF"
         mc:Ignorable="d"
-        Title="CreateCategories"  Width="350"
-        SizeToContent="Height"
-        WindowStartupLocation="CenterScreen">
+        Title="CreateCategories" Width="450" Height="500" MinWidth="380" MinHeight="400"
+        WindowStartupLocation="CenterOwner"
+        Closing="Window_Closing">
     <!-- Source: Aref's WPF demo from PIII Fall 2025 -->
-    <StackPanel Margin="10">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <TextBlock Text="Calendar App" FontSize="22"
-                   HorizontalAlignment="Center"/>
-        <TextBlock Text="Create Category" FontSize="15"
-                   HorizontalAlignment="Center"/>
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#F3F7FB" Padding="16,12" BorderBrush="#DCE5EE" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Calendar App" FontSize="22" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Create Category" FontSize="15" HorizontalAlignment="Left" Margin="0,4,0,0"/>
+                </StackPanel>
+                <Button Grid.Column="1" Content="✕" Click="btnWindowClose_Clicked" Width="32" Height="32" 
+                        Background="Transparent" Foreground="#1E2D3D" FontSize="16" FontWeight="Bold"
+                        Padding="0" VerticalAlignment="Top" Cursor="Hand"/>
+            </Grid>
+        </Border>
 
-        <GroupBox Header="Basic Info">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Description" Margin="0,0,20,0"/>
-                <TextBox x:Name="txtDescription" Width="200"/>
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+
+        <GroupBox Header="Basic Info" Margin="0,0,0,16">
+            <Grid Margin="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="140"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" VerticalAlignment="Center">Description</Label>
+                <TextBox Grid.Column="1" x:Name="txtDescription"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="cmbBox" Header="Category Type" Margin="0,0,0,16">
+            <StackPanel x:Name="stkpCategoryType" Margin="8">
+                <CheckBox x:Name="cbEvent" Content="Event" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed" Margin="0,4"/>
+                <CheckBox x:Name="cbAllDayEvent" Content="All-Day Event" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed" Margin="0,4"/>
+                <CheckBox x:Name="cbHoliday" Content="Holiday" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed" Margin="0,4"/>
+                <CheckBox x:Name="cbAvailability" Content="Availability" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed" Margin="0,4"/>
             </StackPanel>
         </GroupBox>
 
-        <GroupBox x:Name="cmbBox" Header="Category Type">
-            <StackPanel x:Name="stkpCategoryType" Margin="5">
-                <CheckBox x:Name="cbEvent" Content="Event" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed"/>
-                <CheckBox x:Name="cbAllDayEvent" Content="All-Day Event" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed"/>
-                <CheckBox x:Name="cbHoliday" Content="Holiday" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed"/>
-                <CheckBox x:Name="cbAvailability" Content="Availability" Checked="CategoryCheckBox_Changed" Unchecked="CategoryCheckBox_Changed"/>
+        <StackPanel Orientation="Vertical" Margin="0,16,0,0">
+            <Button Content="Create Category" Click="btnCreateCategory_Clicked" Height="40" Background="#2F6F8F" Foreground="White" HorizontalAlignment="Stretch" FontWeight="SemiBold"/>
+            <Button Content="Cancel" Click="btnCancel_Clicked" Height="40" Margin="0,8,0,0" Background="#C0392B" Foreground="White" HorizontalAlignment="Stretch" FontWeight="SemiBold"/>
+        </StackPanel>
             </StackPanel>
-        </GroupBox>
+        </ScrollViewer>
 
-        <Button Content="Create Category" Margin="10" Click="btnCreateCategory_Clicked"/>
-
-    </StackPanel>
+        <!-- Footer -->
+        <Border Grid.Row="2" Background="#F3F7FB" Padding="16,8" BorderBrush="#DCE5EE" BorderThickness="0,1,0,0">
+        </Border>
+    </Grid>
 </Window>

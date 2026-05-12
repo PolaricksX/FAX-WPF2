@@ -5,23 +5,51 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FAX_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Border Background="{DynamicResource SurfaceBrush}" CornerRadius="10" Margin="20" Padding="20" MaxWidth="320" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <StackPanel>
-                <TextBlock Text="FAX Calendar" FontSize="24" FontWeight="Bold" Margin="0,0,0,12" HorizontalAlignment="Center" />
-                <ComboBox x:Name="comboTheme" Width="220" SelectedIndex="0" SelectionChanged="ComboTheme_SelectionChanged">
-                    <ComboBoxItem Content="Soft Blue" />
-                    <ComboBoxItem Content="High Contrast" />
-                </ComboBox>
-                <Button Content="Exit App" Width="220" Click="ExitApp_Click" />
-                <Button Content="Select Calendar" Click="SelectCalendar_Click"/>
-                <Button Content="Save Calendar" Click="SaveCalendar_Click"/>
-                <Button Content="Open Previously Worked On File" Click="PreviousFile_Click"/>
+        Title="FAX Calendar" Height="600" Width="900" MinHeight="400" MinWidth="600" WindowState="Maximized">
+    <Grid Background="{DynamicResource AppBackgroundBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-                <TextBlock x:Name="infoTextBlock"/>
-            </StackPanel>
+        <!-- Header with close button -->
+        <Border Grid.Row="0" Background="{DynamicResource SurfaceBrush}" Padding="20,16" BorderBrush="#DCE5EE" BorderThickness="0,0,0,1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="FAX Calendar" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextBrush}"/>
+                <Button Grid.Column="1" Content="✕" Click="btnWindowClose_Clicked" Width="40" Height="40" 
+                        Background="Transparent" Foreground="{DynamicResource TextBrush}" FontSize="18" FontWeight="Bold"
+                        Padding="0" VerticalAlignment="Top" Cursor="Hand"/>
+            </Grid>
         </Border>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Border Background="{DynamicResource SurfaceBrush}" CornerRadius="10" Margin="40" Padding="30" MaxWidth="450">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="Calendar Settings" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" Foreground="{DynamicResource TextBrush}" HorizontalAlignment="Center" />
+                    
+                    <GroupBox Header="Theme" Margin="0,0,0,16">
+                        <ComboBox x:Name="comboTheme" Margin="8" SelectedIndex="0" SelectionChanged="ComboTheme_SelectionChanged">
+                            <ComboBoxItem Content="Soft Blue" />
+                            <ComboBoxItem Content="High Contrast" />
+                        </ComboBox>
+                    </GroupBox>
+
+                    <StackPanel Orientation="Vertical" Margin="0,0,0,0">
+                        <Button Content="Select Calendar" Width="220" Height="40" Click="SelectCalendar_Click" Background="#2F6F8F" Foreground="White" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <Button Content="Save Calendar" Width="220" Height="40" Click="SaveCalendar_Click" Background="#4F7C6A" Foreground="White" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <Button Content="Open Previously Worked On File" Width="220" Height="40" Click="PreviousFile_Click" Background="#6B5B7D" Foreground="White" FontWeight="SemiBold" Margin="0,0,0,10" HorizontalAlignment="Center"/>
+                        <Button Content="Exit App" Width="220" Height="40" Click="ExitApp_Click" Background="#C0392B" Foreground="White" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+                    </StackPanel>
+
+                    <TextBlock x:Name="infoTextBlock" Margin="0,20,0,0" Foreground="{DynamicResource TextBrush}" TextWrapping="Wrap" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
 
     </Grid>
 </Window>
