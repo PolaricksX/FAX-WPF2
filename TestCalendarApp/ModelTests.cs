@@ -49,32 +49,33 @@ public class CategoriesTests
         Assert.NotNull(categories);
     }
 
-public class EventsTests
-{
-    private static string GetTempFile(string name)
+    public class EventsTests
     {
-        return System.IO.Path.Combine(System.IO.Path.GetTempPath(), name);
-    }
+        private static string GetTempFile(string name)
+        {
+            return System.IO.Path.Combine(System.IO.Path.GetTempPath(), name);
+        }
 
-    [Fact]
-    public void Events_List_ReturnsExpectedEvents()
-    {
-        string path = GetTempFile("EventsTests_List.calendar");
-        var calendar = new HomeCalendar(path, true);
-        var events = calendar.events.List();
-        Assert.NotNull(events);
-    }
+        [Fact]
+        public void Events_List_ReturnsExpectedEvents()
+        {
+            string path = GetTempFile("EventsTests_List.calendar");
+            var calendar = new HomeCalendar(path, true);
+            var events = calendar.events.List();
+            Assert.NotNull(events);
+        }
 
-    [Fact]
-    public void Events_Add_AddsEvent()
-    {
-        string path = GetTempFile("EventsTests_Add.calendar");
-        var calendar = new HomeCalendar(path, true);
-        calendar.categories.Add("Test Category", Category.CategoryType.Event);
+        [Fact]
+        public void Events_Add_AddsEvent()
+        {
+            string path = GetTempFile("EventsTests_Add.calendar");
+            var calendar = new HomeCalendar(path, true);
+            calendar.categories.Add("Test Category", Category.CategoryType.Event);
 
-        calendar.events.Add(1, 60, "2026-04-29 14:00:00", "Test event");
+            calendar.events.Add(1, 60, "2026-04-29 14:00:00", "Test event");
 
-        var events = calendar.events.List();
-        Assert.NotEmpty(events);
+            var events = calendar.events.List();
+            Assert.NotEmpty(events);
+        }
     }
 }
