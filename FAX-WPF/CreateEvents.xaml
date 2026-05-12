@@ -5,78 +5,111 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FAX_WPF"
         mc:Ignorable="d"
-        Title="Create Event" Width="420" MinWidth="320"
+        Title="Create Event" Width="500" Height="700" MinWidth="400" MinHeight="600"
         WindowStartupLocation="CenterOwner"
-        SizeToContent="Height">
+        Closing="Window_Closing">
     <!-- Source: Aref's WPF demo from PIII Fall 2025-->
-    <StackPanel Margin="12">
-        <TextBlock Text="Calendar App" FontSize="22" HorizontalAlignment="Center"/>
-        <TextBlock Text="Create Event" FontSize="15" HorizontalAlignment="Center"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
 
-        <!-- Category -->
-        <GroupBox Header="Category">
-            <Grid Margin="4">
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#F3F7FB" Padding="16,12">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Center">Category</Label>
-                <ComboBox Grid.Column="1" x:Name="cmbCategoryName" SelectionChanged="cmbCategoryName_SelectionChanged" DisplayMemberPath="Description"/>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="Calendar App" FontSize="22" HorizontalAlignment="Left"/>
+                    <TextBlock x:Name="txtSubtitle" Text="Create Event" FontSize="15" HorizontalAlignment="Left" Margin="0,4,0,0"/>
+                </StackPanel>
+                <Button Grid.Column="1" Content="✕" Click="btnWindowClose_Clicked" Width="32" Height="32" 
+                        Background="Transparent" Foreground="#1E2D3D" FontSize="16" FontWeight="Bold"
+                        Padding="0" VerticalAlignment="Top" Cursor="Hand"/>
             </Grid>
-        </GroupBox>
+        </Border>
 
-        <!-- Category ID -->
-        <GroupBox Header="Category ID">
-            <Grid Margin="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Center">Category ID</Label>
-                <TextBox Grid.Column="1" x:Name="txtCategoryID"/>
-            </Grid>
-        </GroupBox>
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="16" VerticalAlignment="Stretch" MinHeight="500">
 
-        <!-- Duration -->
-        <GroupBox Header="Duration (minutes)">
-            <Grid Margin="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Center">Duration</Label>
-                <TextBox Grid.Column="1" x:Name="txtDuration"/>
-            </Grid>
-        </GroupBox>
+                <!-- Category -->
+                <GroupBox Header="Category" Margin="0,0,0,12">
+                    <Grid Margin="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" VerticalAlignment="Center">Category</Label>
+                        <ComboBox Grid.Column="1" x:Name="cmbCategoryName" SelectionChanged="cmbCategoryName_SelectionChanged" DisplayMemberPath="Description"/>
+                    </Grid>
+                </GroupBox>
 
-        <!-- Date and Time -->
-        <GroupBox Header="Date and Time">
-            <Grid Margin="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Center">Date and Time</Label>
-                <TextBox Grid.Column="1" x:Name="txtDateTime"/>
-            </Grid>
-        </GroupBox>
+                <!-- Category ID -->
+                <GroupBox Header="Category ID" Margin="0,0,0,12">
+                    <Grid Margin="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" VerticalAlignment="Center">Category ID</Label>
+                        <TextBox Grid.Column="1" x:Name="txtCategoryID" IsReadOnly="True"/>
+                    </Grid>
+                </GroupBox>
 
-        <!-- Details -->
-        <GroupBox Header="Details">
-            <Grid Margin="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" VerticalAlignment="Center">Details</Label>
-                <TextBox Grid.Column="1" x:Name="txtDetails"/>
-            </Grid>
-        </GroupBox>
+                <!-- Duration -->
+                <GroupBox Header="Duration (minutes)" Margin="0,0,0,12">
+                    <Grid Margin="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" VerticalAlignment="Center">Duration</Label>
+                        <TextBox Grid.Column="1" x:Name="txtDuration"/>
+                    </Grid>
+                </GroupBox>
 
-        <StackPanel Orientation="Vertical" Margin="0,6,0,0">
-            <Button Content="Save Event" Click="btnSave_Clicked" Height="36" Background="#2F6F8F" Foreground="White" HorizontalAlignment="Stretch"/>
-            <Button Content="Cancel Event" Click="btnCancel_Clicked" Height="36" Margin="0,8,0,0" Background="#2F6F8F" Foreground="White" HorizontalAlignment="Stretch"/>
-            <Button Content="Create Category" Click="btnCreateCategory_Clicked" Height="36" Margin="0,8,0,0" Background="#2F6F8F" Foreground="White" HorizontalAlignment="Stretch"/>
-        </StackPanel>
-    </StackPanel>
+                <!-- Date -->
+                <GroupBox Header="Date" Margin="0,0,0,12">
+                    <Grid Margin="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" VerticalAlignment="Center">Date</Label>
+                        <DatePicker Grid.Column="1" x:Name="dpStartDate" Margin="0,0,8,0"/>
+                        <Button Grid.Column="2" Content="Select Date" Click="btnSelectDate_Clicked" Padding="12,6" Background="#2F6F8F" Foreground="White"/>
+                    </Grid>
+                </GroupBox>
+
+                <!-- Details -->
+                <GroupBox Header="Details" Margin="0,0,0,12">
+                    <Grid Margin="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="140"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" VerticalAlignment="Top">Details</Label>
+                        <TextBox Grid.Column="1" x:Name="txtDetails" MinHeight="80" TextWrapping="Wrap" AcceptsReturn="True"/>
+                    </Grid>
+                </GroupBox>
+
+                <StackPanel Orientation="Vertical" Margin="0,16,0,0">
+                    <Button x:Name="btnSave" Content="Save Event" Click="btnSave_Clicked" Height="40" Background="#2F6F8F" Foreground="White" HorizontalAlignment="Stretch" FontWeight="SemiBold"/>
+                    <Button Content="Cancel Event" Click="btnCancel_Clicked" Height="40" Margin="0,8,0,0" Background="#C0392B" Foreground="White" HorizontalAlignment="Stretch" FontWeight="SemiBold"/>
+                    <Button Content="Create Category" Click="btnCreateCategory_Clicked" Height="40" Margin="0,8,0,0" Background="#4F7C6A" Foreground="White" HorizontalAlignment="Stretch" FontWeight="SemiBold"/>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Footer Buttons -->
+        <Border Grid.Row="2" Background="#F3F7FB" Padding="16,8" BorderBrush="#DCE5EE" BorderThickness="0,1,0,0">
+            <!-- Buttons moved to content area above -->
+        </Border>
+    </Grid>
 </Window>

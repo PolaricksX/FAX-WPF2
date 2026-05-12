@@ -38,6 +38,7 @@ namespace FAX_WPF
         private Calendar.Category.CategoryType _selectedCategoryType;
         private CategoryPresenter _catPresenter;
         private bool _suppressCategoryCheckboxEvents;
+        private bool _hasUnsavedChanges = false;
 
         /// <summary>
         /// Initializes a new instance of the CreateCategories form using the specified main presenter.
@@ -47,13 +48,66 @@ namespace FAX_WPF
         {
             InitializeComponent();
             _catPresenter = p.GetCategoryPresenter(this);
+
+            // Register event handler for tracking changes
+            txtDescription.TextChanged += Description_TextChanged;
+        }
+
+        /// <summary>
+        /// Tracks when description is modified to set unsaved changes flag.
+        /// </summary>
+        private void Description_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _hasUnsavedChanges = true;
+        }
+
+        /// <summary>
+        /// Handles the close button click.
+        /// </summary>
+        private void btnWindowClose_Clicked(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// Handles the window closing event to check for unsaved changes.
+        /// </summary>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (_hasUnsavedChanges)
+            {
+                var result = MessageBox.Show(
+                    "You have unsaved changes. Do you want to discard them?",
+                    "Unsaved Changes",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
         private void btnCreateCategory_Clicked(object sender, RoutedEventArgs e)
         {
-            if (_catPresenter.SaveCategory())
+            _catPresenter.SaveCategory();
+        }
+
+        /// <summary>
+        /// Handles the cancel button click.
+        /// </summary>
+        private void btnCancel_Clicked(object sender, RoutedEventArgs e)
+        {
+            const string message = "Are you sure you would like to cancel?";
+            const string caption = "Closing Window";
+
+            var result = MessageBox.Show(message, caption, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
             {
-                Close();
+                _hasUnsavedChanges = false; // Don't prompt again
+                this.Close();
             }
         }
 

@@ -60,7 +60,7 @@
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <NoWarn>$(NoWarn);NU1702</NoWarn>
     <EntryPointProjectUniqueName>..\FAX-WPF\FAX-WPF.csproj</EntryPointProjectUniqueName>
-    <PackageCertificateThumbprint>B6D728A9C37D7873F47AE6D534B3B550694BD0F8</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>5DB28DAFDFC1605703F0720CCE6646D23C969525</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>

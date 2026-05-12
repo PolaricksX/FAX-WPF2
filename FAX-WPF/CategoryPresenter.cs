@@ -41,45 +41,64 @@ namespace FAX_WPF
 
         /// <summary>
         /// Attempts to save a new category using the current values from the view.
+        /// Shows a confirmation dialog on success and closes the window.
         /// </summary>
         /// <remarks>If an error occurs during the save operation, an appropriate message is displayed to
-        /// the user and the method returns false. This method relies on the current state of the view for category
+        /// the user. This method relies on the current state of the view for category
         /// details.
         /// </remarks>
-        /// <returns>true if the category is saved successfully; otherwise, false.</returns>
         /// <exception cref="SQLiteException">Thrown when a database-level error occurs during the save operation.</exception>
         /// <exception cref="InvalidOperationException">Thrown when the save operation is performed in an invalid state.</exception>
         /// <exception cref="ArgumentException">Thrown when the category description or type is invalid.</exception>
-        public bool SaveCategory()
+        public void SaveCategory()
         {
             try
             {
+                // Validate description
+                if (string.IsNullOrWhiteSpace(_view.Description))
+                {
+                    _view.ShowMessage("Please provide a category description.");
+                    return;
+                }
+
+                // Validate category type selection
+                if (_view.SelectedCategoryType == null)
+                {
+                    _view.ShowMessage("Please select a category type.");
+                    return;
+                }
+
                 _model.categories.Add(
                     _view.Description,
                     _view.SelectedCategoryType);
 
-                _view.ShowMessage("Category saved successfully!");
-                return true;
+                System.Windows.MessageBox.Show(
+                    "Category saved successfully!",
+                    "Success",
+                    System.Windows.MessageBoxButton.OK,
+                    System.Windows.MessageBoxImage.Information);
+
+                // Close the window
+                if (_view is System.Windows.Window window)
+                {
+                    window.Close();
+                }
             }
             catch (System.Data.SQLite.SQLiteException ex)
             {
-                _view.ShowMessage($"Database error: {ex.Message}");
-                return false;
+                _view.ShowMessage($"Database error: Unable to save category. {ex.Message}");
             }
             catch (InvalidOperationException ex)
             {
-                _view.ShowMessage($"Save failed: {ex.Message}");
-                return false;
+                _view.ShowMessage($"Unable to save category. {ex.Message}");
             }
             catch (ArgumentException ex)
             {
                 _view.ShowMessage(ex.Message);
-                return false;
             }
             catch (Exception)
             {
-                _view.ShowMessage("An unexpected error occurred while saving the category.");
-                return false;
+                _view.ShowMessage("An unexpected error occurred while saving the category. Please try again.");
             }
         }
 
