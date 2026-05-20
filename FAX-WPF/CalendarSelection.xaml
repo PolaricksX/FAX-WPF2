@@ -74,6 +74,8 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <!-- Stats Bar -->
@@ -94,8 +96,46 @@
                     </UniformGrid>
                 </Border>
 
+                <!-- Filters -->
+                <Border Grid.Row="1" Background="White" CornerRadius="18" Padding="18" BorderBrush="#DCE5EE" BorderThickness="1" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="2*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0,0,16,0">
+                            <TextBlock Text="Date Range" FontSize="12" Foreground="#6E7F91" />
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                <DatePicker x:Name="dpFilterStartDate" Width="150" Margin="0,0,8,0" />
+                                <DatePicker x:Name="dpFilterEndDate" Width="150" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Margin="0,0,16,0">
+                            <TextBlock Text="Time Range (HH:mm)" FontSize="12" Foreground="#6E7F91" />
+                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                <TextBox x:Name="txtFilterStartTime" Width="150" Margin="0,0,8,0" />
+                                <TextBox x:Name="txtFilterEndTime" Width="150" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2" Margin="0,0,16,0">
+                            <TextBlock Text="Category" FontSize="12" Foreground="#6E7F91" />
+                            <ComboBox x:Name="cmbFilterCategory" Margin="0,6,0,0" MinWidth="180" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Bottom">
+                            <Button Content="Apply" Click="BtnApplyFilters_Click" Style="{StaticResource ActionButtonStyle}" Margin="0,0,8,0" />
+                            <Button Content="Clear" Click="BtnClearFilters_Click" Style="{StaticResource ActionButtonStyle}" Background="#6E7F91" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
                 <!-- DataGrid -->
-                <DataGrid Grid.Row="1"
+                <DataGrid Grid.Row="2"
                           x:Name="dgEvents"
                           AutoGenerateColumns="False"
                           IsReadOnly="True"
@@ -131,8 +171,49 @@
                     </DataGrid.Columns>
                 </DataGrid>
 
+                <!-- Summary -->
+                <Border Grid.Row="3" Background="White" CornerRadius="18" Padding="18" BorderBrush="#DCE5EE" BorderThickness="1" Margin="0,0,0,16">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                            <TextBlock Text="Summary" FontSize="14" FontWeight="SemiBold" Foreground="#213547" Margin="0,0,12,0" />
+                            <ComboBox x:Name="cmbSummaryMode" Width="200" SelectionChanged="CmbSummaryMode_SelectionChanged">
+                                <ComboBoxItem Content="None" />
+                                <ComboBoxItem Content="By Category" />
+                                <ComboBoxItem Content="By Month" />
+                                <ComboBoxItem Content="By Category + Month" />
+                            </ComboBox>
+                        </StackPanel>
+
+                        <DataGrid Grid.Row="1"
+                                  x:Name="dgSummary"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  CanUserAddRows="False"
+                                  AlternatingRowBackground="#F8FBFE"
+                                  RowBackground="#FFFFFF"
+                                  FontSize="13"
+                                  BorderBrush="#DCE5EE"
+                                  BorderThickness="1"
+                                  GridLinesVisibility="Horizontal"
+                                  HorizontalGridLinesBrush="#E8EEF5"
+                                  MinHeight="120"
+                                  HeadersVisibility="Column">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Group" Binding="{Binding Label}" Width="*" />
+                                <DataGridTextColumn Header="Total Minutes" Binding="{Binding TotalMinutes, StringFormat={}{0:F0}}" Width="200" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </Border>
+
                 <!-- Buttons -->
-                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,48,0">
+                <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,48,0">
+                    <Button Content="Delete Event" Click="BtnDeleteEvent_Click" Style="{StaticResource ActionButtonStyle}" Margin="0,0,10,0" Background="#C0392B" />
                     <Button Content="Create Category" Click="BtnCreateCategory_Click" Style="{StaticResource ActionButtonStyle}" Margin="0,0,10,0" />
                     <Button Content="Create Event" Click="BtnCreateEvent_Click" Style="{StaticResource ActionButtonStyle}" />
                 </StackPanel>

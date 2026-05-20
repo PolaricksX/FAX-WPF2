@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Calendar;
 
 namespace FAX_WPF
 {
@@ -51,6 +52,8 @@ namespace FAX_WPF
 
             // Register event handler for tracking changes
             txtDescription.TextChanged += Description_TextChanged;
+
+            RefreshCategoriesList();
         }
 
         /// <summary>
@@ -92,6 +95,32 @@ namespace FAX_WPF
         private void btnCreateCategory_Clicked(object sender, RoutedEventArgs e)
         {
             _catPresenter.SaveCategory();
+        }
+
+        private void btnDeleteCategory_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (cmbExistingCategories.SelectedItem is not Category selectedCategory)
+            {
+                ShowMessage("Please select a category to delete.");
+                return;
+            }
+
+            var result = MessageBox.Show(
+                "Are you sure you want to delete this category?",
+                "Delete Category",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Warning);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            if (_catPresenter.DeleteCategory(selectedCategory))
+            {
+                RefreshCategoriesList();
+                cmbExistingCategories.SelectedIndex = -1;
+            }
         }
 
         /// <summary>
@@ -206,6 +235,16 @@ namespace FAX_WPF
         public void ShowMessage(string message)
         {
             MessageBox.Show(message);
+        }
+
+        private void RefreshCategoriesList()
+        {
+            cmbExistingCategories.Items.Clear();
+            var categories = _catPresenter.GetCategories();
+            foreach (var category in categories)
+            {
+                cmbExistingCategories.Items.Add(category);
+            }
         }
     }
 }

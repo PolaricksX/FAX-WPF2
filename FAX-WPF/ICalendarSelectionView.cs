@@ -7,5 +7,6 @@ namespace FAX_WPF
     {
         void SetEvents(List<Event> items);
         void SetSummary(int eventCount, double totalBusyTime);
+        void SetSummaryRows(List<SummaryRow> rows);
     }
 }

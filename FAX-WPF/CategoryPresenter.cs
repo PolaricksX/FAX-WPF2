@@ -102,5 +102,47 @@ namespace FAX_WPF
             }
         }
 
+        /// <summary>
+        /// Retrieves the list of categories from the model.
+        /// </summary>
+        /// <returns>A list of Category objects.</returns>
+        public List<Category> GetCategories()
+        {
+            return _model.categories.List();
+        }
+
+        /// <summary>
+        /// Deletes the selected category if no events are associated with it.
+        /// </summary>
+        /// <param name="categoryToDelete">The category to delete.</param>
+        /// <returns>True if delete succeeds; otherwise false.</returns>
+        public bool DeleteCategory(Category categoryToDelete)
+        {
+            if (categoryToDelete == null)
+            {
+                _view.ShowMessage("Please select a category to delete.");
+                return false;
+            }
+
+            try
+            {
+                var hasEvents = _model.events.List().Any(e => e.Category == categoryToDelete.Id);
+                if (hasEvents)
+                {
+                    _view.ShowMessage("This category cannot be deleted because events are associated with it.");
+                    return false;
+                }
+
+                _model.categories.Delete(categoryToDelete.Id);
+                _view.ShowMessage("Category deleted successfully.");
+                return true;
+            }
+            catch (Exception)
+            {
+                _view.ShowMessage("Unable to delete category. Please try again.");
+                return false;
+            }
+        }
+
     }
 }
